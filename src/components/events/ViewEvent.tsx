@@ -10,15 +10,22 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "../ui/textarea";
 import { useState } from "react";
+import { DeleteEventDialog } from "./DeleteEventDialog";
+import { EventType } from "./SeeMore";
+import { endEvent } from "@/app/actions/updateEvent";
+import { useTransition } from "react";
+import { useToast } from "../ui/use-toast";
 
 export default function ViewEvent({
   event,
   onClose
 }: {
-  event: any;
+  event: EventType;
   onClose: () => void;
 }) {
   const [isEdit, setIsEdit] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const { toast } = useToast();
 
   const handleEditClick = () => {
     setIsEdit((prevEdit) => !prevEdit);
@@ -26,6 +33,17 @@ export default function ViewEvent({
 
   const handleSaveClick = () => {
     setIsEdit(false);
+  };
+
+  const handleEndEvent = async () => {
+    onClose();
+    startTransition(async () => {
+      await endEvent(event.id);
+      toast({
+        title: "Event Ended",
+        description: `The event "${event.title}" was ended successfully.`
+      });
+    });
   };
 
   return (
@@ -101,10 +119,10 @@ export default function ViewEvent({
       <DialogFooter>
         <div className="flex justify-between w-full">
           <div className="flex gap-2">
-            <Button className="bg-destructive text-primary hover:text-destructive dark:text-secondary-foreground">
-              Delete
+            <DeleteEventDialog event={event} onClose={onClose} />
+            <Button type="button" onClick={handleEndEvent}>
+              End Event
             </Button>
-            <Button type="button">Archive</Button>
           </div>
           <div className="flex gap-2">
             <Button type="button" onClick={handleEditClick}>
