@@ -10,7 +10,7 @@ import {
 } from "drizzle-orm/pg-core";
 
 export const Users = pgTable("users", {
-  id: serial("user_id"),
+  id: serial("user_id").notNull(),
   username: varchar("username", { length: 50 }).notNull().unique(),
   password: varchar("password", { length: 255 }).notNull(),
   imageId: varchar("image_path", { length: 255 }), // Optional, stores reference to image
@@ -31,11 +31,11 @@ export const Users = pgTable("users", {
 });
 
 export const Events = pgTable("events", {
-  id: text("xata_id"),
+  id: text("xata_id").notNull(),
   title: varchar("title", { length: 255 }).notNull(),
   startDate: timestamp("start_date").notNull(),
   endDate: timestamp("end_date").notNull(),
-  description: text("description"),
+  description: text("description").notNull(),
   isOngoing: boolean("is_ongoing").notNull().default(false),
   createdAt: timestamp("xata_createdat").defaultNow(),
   updatedAt: timestamp("xata_updatedat").defaultNow(),
