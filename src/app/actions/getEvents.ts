@@ -10,7 +10,10 @@ const db = drizzle(xata);
 
 export const getAllEvents = async () => {
   try {
-    const events = await db.select().from(Events);
+    const events = await db
+      .select()
+      .from(Events)
+      .orderBy(desc(Events.createdAt));
 
     return events;
   } catch (error) {
@@ -24,6 +27,7 @@ export const getCompletedEvents = async () => {
       .select()
       .from(Events)
       .where(sql`${Events.isOngoing} = FALSE`)
+      .orderBy(desc(Events.createdAt))
       .execute();
 
     return events;
@@ -39,6 +43,7 @@ export const getOnGoingEvents = async () => {
       .select()
       .from(Events)
       .where(sql`${Events.isOngoing} = TRUE`)
+      .orderBy(desc(Events.createdAt))
       .execute();
 
     return events;

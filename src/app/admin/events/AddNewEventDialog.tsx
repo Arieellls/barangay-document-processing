@@ -2,28 +2,16 @@
 
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { ReactNode, useState } from "react";
-import ViewEvent from "@/components/events/ViewEvent";
+import FormEvent from "./FormEvent";
 
-export type EventType = {
-  title: string;
-  id: string;
-  startDate: Date;
-  endDate: Date;
-  description: string;
-  isOngoing: boolean;
-  createdAt: Date | null;
-  updatedAt: Date | null;
-  userId: string;
-};
-
-export default function SeeMore({
+export default function AddNewEventDialog({
   event,
   children,
   className
 }: {
-  event: EventType;
+  event?: any;
   children: ReactNode;
-  className: string;
+  className?: string;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -32,7 +20,7 @@ export default function SeeMore({
       <DialogTrigger className={className} onClick={() => setOpen(true)}>
         {children}
       </DialogTrigger>
-      <ViewEvent event={event} onClose={() => setOpen(false)} />
+      <FormEvent event={event} onClose={() => setOpen(false)} />
     </Dialog>
   );
 }
