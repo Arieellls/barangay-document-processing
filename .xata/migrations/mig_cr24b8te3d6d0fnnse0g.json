@@ -1,0 +1,22 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr24b8te3d6d0fnnse0g",
+    "operations": [
+      {
+        "alter_column": {
+          "up": "(SELECT CASE WHEN \"user_id\" IS NULL THEN '' ELSE \"user_id\" END)",
+          "down": "(SELECT CASE WHEN \"user_id\" IS NULL THEN '' ELSE \"user_id\" END)",
+          "table": "events",
+          "column": "user_id",
+          "nullable": false
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr24b8te3d6d0fnnse0g",
+  "parent": "mig_cr24aunqirmrjboq3tfg",
+  "schema": "public",
+  "startedAt": "2024-08-20T07:28:36.702417Z"
+}

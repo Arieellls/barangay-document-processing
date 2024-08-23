@@ -1,0 +1,19 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr255llhuctd80q0niv0",
+    "operations": [
+      {
+        "drop_column": {
+          "table": "events",
+          "column": "start_date"
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr255llhuctd80q0niv0",
+  "parent": "mig_cr24b8te3d6d0fnnse0g",
+  "schema": "public",
+  "startedAt": "2024-08-20T08:24:54.933994Z"
+}

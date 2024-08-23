@@ -1,0 +1,26 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr2413le3d6d0fnnsdsg",
+    "operations": [
+      {
+        "add_column": {
+          "table": "events",
+          "column": {
+            "pk": false,
+            "name": "is_ongoing",
+            "type": "float",
+            "unique": false,
+            "comment": "",
+            "nullable": true
+          }
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr2413le3d6d0fnnsdsg",
+  "parent": "mig_cr1n765e3d6d0fnnscfg",
+  "schema": "public",
+  "startedAt": "2024-08-20T07:06:55.356627Z"
+}

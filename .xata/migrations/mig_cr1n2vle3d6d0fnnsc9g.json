@@ -1,0 +1,26 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr1n2vle3d6d0fnnsc9g",
+    "operations": [
+      {
+        "add_column": {
+          "table": "users",
+          "column": {
+            "pk": false,
+            "name": "contact_number",
+            "type": "text",
+            "unique": false,
+            "comment": "",
+            "nullable": true
+          }
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr1n2vle3d6d0fnnsc9g",
+  "parent": "mig_cr1n2t5huctd80q0nehg",
+  "schema": "public",
+  "startedAt": "2024-08-19T16:23:27.292867Z"
+}

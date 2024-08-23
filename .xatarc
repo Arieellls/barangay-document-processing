@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Manori-a-Arielito-s-workspace-0g26vc.us-east-1.xata.sh/db/hci",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}

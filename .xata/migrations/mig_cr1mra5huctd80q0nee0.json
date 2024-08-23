@@ -1,0 +1,12 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr1mra5huctd80q0nee0",
+    "operations": []
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr1mra5huctd80q0nee0",
+  "parent": "mig_cr1mqifqirmrjboq3q1g",
+  "schema": "public",
+  "startedAt": "2024-08-19T16:07:05.938093Z"
+}
