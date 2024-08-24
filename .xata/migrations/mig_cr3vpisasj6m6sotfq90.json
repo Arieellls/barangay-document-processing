@@ -1,0 +1,19 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr3vpisasj6m6sotfq90",
+    "operations": [
+      {
+        "drop_column": {
+          "table": "users",
+          "column": "contact_number"
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr3vpisasj6m6sotfq90",
+  "parent": "mig_cr3vhakasj6m6sotfq4g",
+  "schema": "public",
+  "startedAt": "2024-08-23T03:06:52.280827Z"
+}

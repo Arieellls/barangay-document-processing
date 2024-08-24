@@ -2,18 +2,17 @@
 
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { ReactNode, useState } from "react";
-import ViewEvent from "@/components/events/ViewEvent";
-import ViewOfficials from "./ViewOfficials";
-import { OfficialType } from "@/app/admin/types/officialsType";
+import ViewProfile from "./ViewProfile";
+import { UserType } from "../types/officialsType";
 
-export default function OfficialsDialog({
-  official,
+export default function ViewProfileDialog({
+  resident,
   children,
   className
 }: {
-  official: OfficialType;
+  resident: UserType;
   children: ReactNode;
-  className: string;
+  className?: string;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -22,7 +21,7 @@ export default function OfficialsDialog({
       <DialogTrigger className={className} onClick={() => setOpen(true)}>
         {children}
       </DialogTrigger>
-      <ViewOfficials official={official} onClose={() => setOpen(false)} />
+      <ViewProfile resident={resident} onClose={() => setOpen(false)} />
     </Dialog>
   );
 }

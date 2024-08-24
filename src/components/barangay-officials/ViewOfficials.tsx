@@ -9,16 +9,25 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "../ui/textarea";
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { OfficialType } from "@/app/admin/types/officialsType";
+import { formatFullname } from "@/lib/formatFullname";
+import { addNewEvent } from "@/app/actions/post/addNewEvent";
+import { useToast } from "../ui/use-toast";
+import { endTerm } from "@/app/actions/officials/endTerm";
+import { Loader2 } from "lucide-react";
+import { EndTermDialog } from "./EndTermDialog";
 
 export default function ViewOfficials({
   official,
   onClose
 }: {
-  official?: any;
+  official: OfficialType;
   onClose: () => void;
 }) {
   const [isEdit, setIsEdit] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const { toast } = useToast();
 
   const handleEditClick = () => {
     setIsEdit((prevEdit) => !prevEdit);
@@ -33,7 +42,8 @@ export default function ViewOfficials({
       <DialogHeader>
         <DialogTitle>Event Information</DialogTitle>
         <DialogDescription>
-          Make changes to your event details here. Click save when you are done.
+          Make changes to your officials' details here. Click save when you are
+          done.
         </DialogDescription>
       </DialogHeader>
       <div className="grid gap-4 py-4">
@@ -43,7 +53,11 @@ export default function ViewOfficials({
           </Label>
           <Input
             id="name"
-            defaultValue={"Arielito Manorina"}
+            defaultValue={formatFullname({
+              firstName: official.firstName,
+              middleName: official?.middleName,
+              lastName: official.lastName
+            })}
             className="col-span-3"
             disabled={!isEdit}
           />
@@ -52,12 +66,10 @@ export default function ViewOfficials({
           <Label htmlFor="description" className="text-right">
             Position
           </Label>
-          <Textarea
+          <Input
             id="position"
-            defaultValue={"Barangay Captain"}
+            defaultValue={official.position}
             className="col-span-3"
-            rows={8}
-            style={{ minHeight: "100px", resize: "vertical" }}
             disabled={!isEdit}
           />
         </div>
@@ -68,7 +80,11 @@ export default function ViewOfficials({
           <Input
             id="startDate"
             type="date"
-            defaultValue={"August 15, 2024"}
+            defaultValue={
+              official?.startTerm
+                ? official.startTerm.toISOString().slice(0, 10)
+                : ""
+            }
             className="col-span-3"
             disabled={!isEdit}
           />
@@ -80,7 +96,11 @@ export default function ViewOfficials({
           <Input
             id="endDate"
             type="date"
-            defaultValue={"August 25, 2024"}
+            defaultValue={
+              official?.endTerm
+                ? official.endTerm.toISOString().slice(0, 10)
+                : ""
+            }
             className="col-span-3"
             disabled={!isEdit}
           />
@@ -89,19 +109,20 @@ export default function ViewOfficials({
       <DialogFooter>
         <div className="flex justify-between w-full">
           <div className="flex gap-2">
-            <Button className="bg-destructive text-primary hover:text-destructive dark:text-secondary-foreground">
-              Delete
-            </Button>
-            <Button type="button">Archive</Button>
+            <EndTermDialog official={official} onClose={onClose} />
           </div>
           <div className="flex gap-2">
-            <Button type="button" onClick={handleEditClick}>
-              {isEdit ? "Cancel" : "Edit Event"}
+            <Button
+              type="button"
+              onClick={handleEditClick}
+              disabled={isPending}
+            >
+              {isEdit ? "Cancel" : "Edit"}
             </Button>
             <Button
               type="submit"
               onClick={handleSaveClick}
-              disabled={!isEdit}
+              disabled={isPending}
               className={isEdit ? "block" : "hidden"}
             >
               {isEdit ? "Save changes" : "Close"}

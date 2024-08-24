@@ -38,7 +38,7 @@ const formSchema = z
     path: ["endDate"]
   });
 
-export default function FormEvent({
+export default function FormOfficial({
   event,
   onClose
 }: {
@@ -84,11 +84,12 @@ export default function FormEvent({
   };
 
   return (
-    <DialogContent className="max-w-sm sm:max-w-[600px] rounded-lg">
+    <DialogContent className="max-w-sm sm:max-w-[800px] rounded-lg">
       <DialogHeader>
-        <DialogTitle>Add Event</DialogTitle>
+        <DialogTitle>Add New Official</DialogTitle>
         <DialogDescription>
-          Add a new event to implement in your barangay
+          Propose the implementation of a new barangay official role to address
+          a specific need or issue in your community.{" "}
         </DialogDescription>
       </DialogHeader>
 
@@ -103,94 +104,6 @@ export default function FormEvent({
                   <FormLabel>Event Title</FormLabel>
                   <FormControl>
                     <Input id="title" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Event Description</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      id="description"
-                      {...field}
-                      rows={8}
-                      style={{ minHeight: "100px", resize: "vertical" }}
-                    />
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="startDate"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Start Date</FormLabel>
-                  <FormControl>
-                    <Input
-                      id="startDate"
-                      type="date"
-                      {...field}
-                      value={
-                        field.value
-                          ? field.value.toISOString().substring(0, 10)
-                          : ""
-                      }
-                      onChange={(e) => field.onChange(new Date(e.target.value))}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="endDate"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>End Date</FormLabel>
-                  <FormControl>
-                    <Input
-                      id="endDate"
-                      type="date"
-                      {...field}
-                      value={
-                        field.value
-                          ? field.value.toISOString().substring(0, 10)
-                          : ""
-                      }
-                      onChange={(e) => field.onChange(new Date(e.target.value))}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="author"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Author</FormLabel>
-                  <FormControl>
-                    <Input
-                      id="author"
-                      type="text"
-                      {...field}
-                      disabled
-                      value={"Arielito Manorina (Placeholder Name)"}
-                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

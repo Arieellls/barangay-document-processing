@@ -64,9 +64,9 @@ export function getAdminMenuList(pathname: string): Group[] {
           submenus: []
         },
         {
-          href: "/admin/residence",
-          label: "Residence",
-          active: pathname.includes("/residence"),
+          href: "/admin/residents",
+          label: "Residents",
+          active: pathname.includes("/residents"),
           icon: MapPinHouse,
           submenus: []
         },

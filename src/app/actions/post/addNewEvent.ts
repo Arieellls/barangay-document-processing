@@ -47,7 +47,8 @@ export async function addNewEvent(formData: z.infer<typeof addSchema>) {
     isOngoing: true,
     createdAt: createdAt,
     updatedAt: createdAt,
-    userId: "d6f1d10f-3ff4-5fc9-9d9f-140f15cd4579"
+    userId: "d6f1d10f-3ff4-5fc9-9d9f-140f15cd4579",
+    author: data.author
   };
 
   await db.insert(Events).values(eventData);

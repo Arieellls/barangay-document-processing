@@ -7,7 +7,7 @@ import { drizzle } from "drizzle-orm/xata-http";
 const xata = getXataClient();
 const db = drizzle(xata);
 
-export const getAllResidence = async () => {
+export const getAllResidents = async () => {
   try {
     const residence = await db.select().from(Users);
 

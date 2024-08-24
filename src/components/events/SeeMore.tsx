@@ -5,6 +5,7 @@ import { ReactNode, useState } from "react";
 import ViewEvent from "@/components/events/ViewEvent";
 
 export type EventType = {
+  author: string;
   title: string;
   id: string;
   startDate: Date;

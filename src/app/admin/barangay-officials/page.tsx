@@ -30,7 +30,7 @@ export default function BarangayOfficialsPage() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Baranagay Officials</BreadcrumbPage>
+            <BreadcrumbPage>Barangay Officials</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>

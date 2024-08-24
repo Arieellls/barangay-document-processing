@@ -9,6 +9,6 @@ const xata = getXataClient();
 const db = drizzle(xata);
 
 export const getEvent = async (eventId: string) => {
-  const [diary] = await db.select().from(Events).where(eq(Events.id, eventId));
-  return diary || {};
+  const [event] = await db.select().from(Events).where(eq(Events.id, eventId));
+  return event || {};
 };
