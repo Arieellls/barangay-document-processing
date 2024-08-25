@@ -4,14 +4,14 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { ReactNode, useState } from "react";
 import ViewEvent from "@/components/events/ViewEvent";
 import ViewOfficials from "./ViewOfficials";
-import { OfficialType } from "@/app/admin/types/officialsType";
+import { OfficialType, UserType } from "@/app/admin/types/officialsType";
 
 export default function OfficialsDialog({
-  official,
+  officialData,
   children,
   className
 }: {
-  official: OfficialType;
+  officialData: OfficialType;
   children: ReactNode;
   className: string;
 }) {
@@ -22,7 +22,10 @@ export default function OfficialsDialog({
       <DialogTrigger className={className} onClick={() => setOpen(true)}>
         {children}
       </DialogTrigger>
-      <ViewOfficials official={official} onClose={() => setOpen(false)} />
+      <ViewOfficials
+        officialData={officialData}
+        onClose={() => setOpen(false)}
+      />
     </Dialog>
   );
 }

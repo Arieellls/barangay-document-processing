@@ -10,19 +10,21 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "../ui/textarea";
 import { useState, useTransition } from "react";
-import { OfficialType } from "@/app/admin/types/officialsType";
+import { OfficialType, UserType } from "@/app/admin/types/officialsType";
 import { formatFullname } from "@/lib/formatFullname";
 import { addNewEvent } from "@/app/actions/post/addNewEvent";
 import { useToast } from "../ui/use-toast";
 import { endTerm } from "@/app/actions/officials/endTerm";
 import { Loader2 } from "lucide-react";
 import { EndTermDialog } from "./EndTermDialog";
+import { formatDate } from "@/lib/formatDate";
 
 export default function ViewOfficials({
-  official,
+  officialData,
   onClose
 }: {
-  official: OfficialType;
+  officialData: OfficialType;
+
   onClose: () => void;
 }) {
   const [isEdit, setIsEdit] = useState(false);
@@ -54,9 +56,9 @@ export default function ViewOfficials({
           <Input
             id="name"
             defaultValue={formatFullname({
-              firstName: official.firstName,
-              middleName: official?.middleName,
-              lastName: official.lastName
+              firstName: officialData.firstName,
+              middleName: officialData?.middleName,
+              lastName: officialData.lastName
             })}
             className="col-span-3"
             disabled={!isEdit}
@@ -68,7 +70,7 @@ export default function ViewOfficials({
           </Label>
           <Input
             id="position"
-            defaultValue={official.position}
+            defaultValue={officialData.position}
             className="col-span-3"
             disabled={!isEdit}
           />
@@ -79,12 +81,8 @@ export default function ViewOfficials({
           </Label>
           <Input
             id="startDate"
-            type="date"
-            defaultValue={
-              official?.startTerm
-                ? official.startTerm.toISOString().slice(0, 10)
-                : ""
-            }
+            type="text"
+            defaultValue={formatDate(new Date(officialData.startTerm))}
             className="col-span-3"
             disabled={!isEdit}
           />
@@ -95,12 +93,8 @@ export default function ViewOfficials({
           </Label>
           <Input
             id="endDate"
-            type="date"
-            defaultValue={
-              official?.endTerm
-                ? official.endTerm.toISOString().slice(0, 10)
-                : ""
-            }
+            type="text"
+            defaultValue={formatDate(new Date(officialData.endTerm))}
             className="col-span-3"
             disabled={!isEdit}
           />
@@ -109,7 +103,7 @@ export default function ViewOfficials({
       <DialogFooter>
         <div className="flex justify-between w-full">
           <div className="flex gap-2">
-            <EndTermDialog official={official} onClose={onClose} />
+            <EndTermDialog official={officialData} onClose={onClose} />
           </div>
           <div className="flex gap-2">
             <Button

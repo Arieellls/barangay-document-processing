@@ -9,12 +9,13 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState, useTransition } from "react";
-import { UserType } from "@/app/admin/types/officialsType";
 import { formatFullname } from "@/lib/formatFullname";
 import { useToast } from "@/components/ui/use-toast";
 import Image from "next/image";
 import { SexOptions } from "./SexOptions";
 import { StatusOptions } from "./StatusOptions";
+import { formatDate } from "@/lib/formatDate";
+import { UserType } from "../types/officialsType";
 
 export default function ViewProfile({
   resident,
@@ -40,7 +41,7 @@ export default function ViewProfile({
       <DialogHeader>
         <DialogTitle>Event Information</DialogTitle>
         <DialogDescription>
-          Make changes to your officials' details here. Click save when you are
+          Make changes to your residents' details here. Click save when you are
           done.
         </DialogDescription>
       </DialogHeader>
@@ -156,7 +157,13 @@ export default function ViewProfile({
             Sex
           </Label>
           <div className="w-full">
-            <SexOptions />
+            {/* <SexOptions /> */}
+            <Input
+              id="age"
+              defaultValue={resident.gender}
+              className="w-full"
+              disabled={!isEdit}
+            />
           </div>
         </div>
         <div className="flex flex-col items-start gap-2">
@@ -224,8 +231,8 @@ export default function ViewProfile({
           </Label>
           <Input
             id="birthday"
-            type="date"
-            defaultValue={resident.birthday.toISOString().substring(0, 10)}
+            type="text"
+            defaultValue={formatDate(new Date(resident.birthday))}
             className="w-full"
             disabled={!isEdit}
           />
@@ -244,6 +251,21 @@ export default function ViewProfile({
             disabled={!isEdit}
           />
         </div>
+        <div className="flex flex-col items-start gap-2 ">
+          <Label
+            htmlFor="birthday"
+            className="font-light text-right text-muted-foreground"
+          >
+            Purok
+          </Label>
+          <Input
+            id="birthday"
+            type="text"
+            defaultValue={resident.purok}
+            className="w-full"
+            disabled={!isEdit}
+          />
+        </div>
       </div>
 
       <DialogFooter>
@@ -252,12 +274,8 @@ export default function ViewProfile({
             <Button>Future</Button>
           </div>
           <div className="flex gap-2">
-            <Button
-              type="button"
-              onClick={handleEditClick}
-              disabled={isPending}
-            >
-              {isEdit ? "Cancel" : "Edit"}
+            <Button type="button" onClick={onClose} disabled={isPending}>
+              Close
             </Button>
             <Button
               type="submit"

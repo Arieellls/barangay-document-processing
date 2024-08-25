@@ -35,6 +35,7 @@ export async function ResidentsList() {
           <TableHead>Email Address</TableHead>
           <TableHead>Gender</TableHead>
           <TableHead>Age</TableHead>
+          <TableHead>Purok</TableHead>
           <TableHead className="text-left">Voter Status</TableHead>
           {/* Desktop actions */}
           <TableHead className="hidden sm:table-cell w-[50px] text-center"></TableHead>
@@ -67,6 +68,7 @@ export async function ResidentsList() {
             <TableCell>{resident.emailAddress}</TableCell>
             <TableCell>{resident.gender}</TableCell>
             <TableCell>{resident.age}</TableCell>
+            <TableCell>{resident.purok}</TableCell>
             <TableCell className="text-left">
               {resident.isVoter ? "Voter" : "Non-voter"}
             </TableCell>

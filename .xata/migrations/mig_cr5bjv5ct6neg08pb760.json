@@ -1,0 +1,20 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr5bjv5ct6neg08pb760",
+    "operations": [
+      {
+        "drop_column": {
+          "down": "''",
+          "table": "officials",
+          "column": "username"
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr5bjv5ct6neg08pb760",
+  "parent": "mig_cr5b8olct6neg08pb6u0",
+  "schema": "public",
+  "startedAt": "2024-08-25T04:58:37.99171Z"
+}
