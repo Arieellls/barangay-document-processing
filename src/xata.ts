@@ -204,6 +204,126 @@ const tables = [
     ],
   },
   {
+    name: "requested_documents",
+    checkConstraints: {
+      requested_documents_xata_id_length_xata_id: {
+        name: "requested_documents_xata_id_length_xata_id",
+        columns: ["xata_id"],
+        definition: "CHECK ((length(xata_id) < 256))",
+      },
+    },
+    foreignKeys: {},
+    primaryKey: [],
+    uniqueConstraints: {
+      _pgroll_new_requested_documents_xata_id_key: {
+        name: "_pgroll_new_requested_documents_xata_id_key",
+        columns: ["xata_id"],
+      },
+      requested_documents__pgroll_new_user_id_key: {
+        name: "requested_documents__pgroll_new_user_id_key",
+        columns: ["user_id"],
+      },
+    },
+    columns: [
+      {
+        name: "first_name",
+        type: "text",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "last_name",
+        type: "text",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "middle_name",
+        type: "text",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "pickup_date",
+        type: "datetime",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "purpose",
+        type: "text",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "service_type",
+        type: "text",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "status",
+        type: "text",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "user_id",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "xata_createdat",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "xata_id",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: "('rec_'::text || (xata_private.xid())::text)",
+        comment: "",
+      },
+      {
+        name: "xata_updatedat",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "xata_version",
+        type: "int",
+        notNull: true,
+        unique: false,
+        defaultValue: "0",
+        comment: "",
+      },
+    ],
+  },
+  {
     name: "users",
     checkConstraints: {
       users_xata_id_length_xata_id: {
@@ -430,12 +550,16 @@ export type EventsRecord = Events & XataRecord;
 export type Officials = InferredTypes["officials"];
 export type OfficialsRecord = Officials & XataRecord;
 
+export type RequestedDocuments = InferredTypes["requested_documents"];
+export type RequestedDocumentsRecord = RequestedDocuments & XataRecord;
+
 export type Users = InferredTypes["users"];
 export type UsersRecord = Users & XataRecord;
 
 export type DatabaseSchema = {
   events: EventsRecord;
   officials: OfficialsRecord;
+  requested_documents: RequestedDocumentsRecord;
   users: UsersRecord;
 };
 

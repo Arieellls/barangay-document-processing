@@ -1,8 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { RequestList } from "./RequestList";
+import { HistoryList } from "./HistoryList";
 
-export default function RequestDocuments() {
+export default function History() {
   return (
     <Card className="mt-6 border-none rounded-lg">
       <CardContent className="p-6">
@@ -10,7 +10,7 @@ export default function RequestDocuments() {
           <Input className="w-80" placeholder="Search Residence" />
         </div>
         <div className="flex justify-start items-start min-h-[calc(100vh-56px-64px-20px-24px-56px-48px)]">
-          <RequestList />
+          <HistoryList />
         </div>
       </CardContent>
     </Card>

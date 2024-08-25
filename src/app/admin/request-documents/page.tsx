@@ -10,6 +10,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
+import RequestDocuments from "./RequestDocuments";
 
 export default function RequestDocumentsPage() {
   return (
@@ -33,7 +34,7 @@ export default function RequestDocumentsPage() {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <PlaceholderContent />
+      <RequestDocuments />
     </ContentLayout>
   );
 }
