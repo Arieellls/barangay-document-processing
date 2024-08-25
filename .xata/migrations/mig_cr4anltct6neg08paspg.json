@@ -1,0 +1,20 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr4anltct6neg08paspg",
+    "operations": [
+      {
+        "alter_column": {
+          "name": "author",
+          "table": "events",
+          "column": "authot"
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr4anltct6neg08paspg",
+  "parent": "mig_cr4an2aamasho2v9vvj0",
+  "schema": "public",
+  "startedAt": "2024-08-23T15:33:43.647001Z"
+}

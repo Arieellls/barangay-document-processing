@@ -1,0 +1,27 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr4k9r5ct6neg08paucg",
+    "operations": [
+      {
+        "add_column": {
+          "up": "''",
+          "table": "officials",
+          "column": {
+            "pk": false,
+            "name": "password",
+            "type": "text",
+            "unique": false,
+            "comment": "",
+            "nullable": false
+          }
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr4k9r5ct6neg08paucg",
+  "parent": "mig_cr4k9mdct6neg08paubg",
+  "schema": "public",
+  "startedAt": "2024-08-24T02:26:54.076183Z"
+}

@@ -1,0 +1,26 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr5d625ct6neg08pb840",
+    "operations": [
+      {
+        "add_column": {
+          "table": "users",
+          "column": {
+            "pk": false,
+            "name": "purok",
+            "type": "int",
+            "unique": false,
+            "comment": "",
+            "nullable": true
+          }
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr5d625ct6neg08pb840",
+  "parent": "mig_cr5d5uaamasho2va07t0",
+  "schema": "public",
+  "startedAt": "2024-08-25T06:45:28.46809Z"
+}

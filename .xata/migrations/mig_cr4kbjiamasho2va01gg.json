@@ -1,0 +1,26 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr4kbjiamasho2va01gg",
+    "operations": [
+      {
+        "add_column": {
+          "table": "officials",
+          "column": {
+            "pk": false,
+            "name": "current_address",
+            "type": "text",
+            "unique": false,
+            "comment": "",
+            "nullable": true
+          }
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr4kbjiamasho2va01gg",
+  "parent": "mig_cr4kbfiamasho2va01fg",
+  "schema": "public",
+  "startedAt": "2024-08-24T02:30:39.463608Z"
+}

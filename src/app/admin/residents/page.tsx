@@ -10,9 +10,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
-import Residence from "./Residence";
+import Residents from "./Residents";
 
-export default function ResidencePage() {
+export default function ResidentsPage() {
   return (
     <ContentLayout title="Resindence">
       <Breadcrumb>
@@ -30,11 +30,11 @@ export default function ResidencePage() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Residence</BreadcrumbPage>
+            <BreadcrumbPage>Residents</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <Residence />
+      <Residents />
     </ContentLayout>
   );
 }

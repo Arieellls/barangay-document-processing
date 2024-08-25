@@ -35,19 +35,22 @@ export default async function EventCard({ searchParams }: Props) {
   }
 
   return (
-    <div className="flex flex-wrap gap-4 text-sm sm:text-lg">
+    <div className="flex flex-wrap justify-around gap-4 text-sm sm:text-lg sm:justify-start">
       {_events.map((event) => (
         <SeeMore
           key={event.id}
           event={event}
-          className="sm:w-48 sm:h-48 w-44 h-44"
+          className="w-36 h-36 sm:w-48 sm:h-48" //this
         >
           <Card className="w-full h-full text-left">
             <CardHeader>
               <CardTitle>{event.title}</CardTitle>
-              <CardDescription className="text-sm">
-                <p>Start: {new Date(event.startDate).toLocaleDateString()}</p>
-                <p>End: {new Date(event.endDate).toLocaleDateString()}</p>
+              <CardDescription className="text-[11px] sm:text-sm">
+                <p className="leading-none">
+                  Start: {new Date(event.startDate).toLocaleDateString()}
+                  <br></br>
+                  End: {new Date(event.endDate).toLocaleDateString()}
+                </p>
               </CardDescription>
             </CardHeader>
           </Card>

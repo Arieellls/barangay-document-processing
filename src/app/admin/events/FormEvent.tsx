@@ -53,8 +53,6 @@ export default function FormEvent({
     defaultValues: {
       title: "",
       description: "",
-      // startDate: new Date(),
-      // endDate: new Date(),
       author: "Arielito Manorina (Placeholder Name)"
     }
   });
