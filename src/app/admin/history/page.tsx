@@ -10,6 +10,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
+import History from "./History";
 
 export default function HistoryPage() {
   return (
@@ -33,7 +34,7 @@ export default function HistoryPage() {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <PlaceholderContent />
+      <History />
     </ContentLayout>
   );
 }

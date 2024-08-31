@@ -59,13 +59,15 @@ export const Events = pgTable("events", {
     .references(() => Users.id)
 });
 
-const Documents = pgTable("requested_documents", {
+export const Documents = pgTable("requested_documents", {
   id: text("xata_id").primaryKey(),
-  first_name: text("first_name"),
-  last_name: text("last_name"),
-  middle_name: text("middle_name"),
-  pickup_date: text("pickuo_date"),
+  firstName: text("first_name").notNull(),
+  lastName: text("last_name").notNull(),
+  middleName: text("middle_name").notNull(),
+  pickupDate: text("pickup_date").notNull(),
+  serviceType: varchar("service_type", { length: 255 }).notNull(),
   purpose: text("purpose"),
+  status: text("status"),
   userId: varchar("user_id")
     .notNull()
     .references(() => Users.id)

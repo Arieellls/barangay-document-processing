@@ -1,0 +1,19 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr5ec7sfq47auujruh80",
+    "operations": [
+      {
+        "drop_column": {
+          "table": "requested_documents",
+          "column": "pickup_date"
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr5ec7sfq47auujruh80",
+  "parent": "mig_cr5dlolct6neg08pb8i0",
+  "schema": "public",
+  "startedAt": "2024-08-25T08:06:55.567282Z"
+}

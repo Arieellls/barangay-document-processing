@@ -1,0 +1,26 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr5dkidct6neg08pb8f0",
+    "operations": [
+      {
+        "add_column": {
+          "table": "requested_documents",
+          "column": {
+            "pk": false,
+            "name": "first_name",
+            "type": "text",
+            "unique": false,
+            "comment": "",
+            "nullable": true
+          }
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr5dkidct6neg08pb8f0",
+  "parent": "mig_cr5djulct6neg08pb8e0",
+  "schema": "public",
+  "startedAt": "2024-08-25T07:16:26.279201Z"
+}
