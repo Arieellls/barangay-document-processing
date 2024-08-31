@@ -3,7 +3,7 @@
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { ReactNode, useState } from "react";
 import ViewProfile from "./ViewProfile";
-import { UserType } from "../types/officialsType";
+import { UserType } from "../../types/officialsType";
 
 export default function ViewProfileDialog({
   resident,

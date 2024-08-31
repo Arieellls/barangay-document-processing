@@ -18,9 +18,10 @@ import {
   PopoverContent,
   PopoverTrigger
 } from "@/components/ui/popover";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
-const status = [
+const statuses = [
   {
     value: "all",
     label: "All Events"
@@ -36,15 +37,24 @@ const status = [
 ];
 
 export default function EventStatus() {
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  const { data: session, status: sessionStatus } = useSession();
   const router = useRouter();
 
+  if (sessionStatus === "loading") {
+    return null;
+  }
+
+  const isAdmin = session?.user?.role === "admin";
+  const routeParams = isAdmin ? "/admin/events?status=" : "/events?status=";
+
+  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState("all");
+
   const handleSelect = (currentValue: string) => {
-    setValue(currentValue === value ? "all" : currentValue);
+    setValue(currentValue);
     setOpen(false);
 
-    router.replace(`/admin/events?status=${currentValue}`);
+    router.push(`${routeParams}${currentValue}`);
   };
 
   return (
@@ -56,9 +66,7 @@ export default function EventStatus() {
           aria-expanded={open}
           className="w-[200px] justify-between"
         >
-          {value
-            ? status.find((state) => state.value === value)?.label
-            : "Status"}
+          {statuses.find((state) => state.value === value)?.label || "Status"}
           <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
         </Button>
       </PopoverTrigger>
@@ -67,11 +75,11 @@ export default function EventStatus() {
           <CommandList>
             <CommandEmpty>No status found.</CommandEmpty>
             <CommandGroup>
-              {status.map((state) => (
+              {statuses.map((state) => (
                 <CommandItem
                   key={state.value}
                   value={state.value}
-                  onSelect={handleSelect}
+                  onSelect={() => handleSelect(state.value)}
                 >
                   <Check
                     className={cn(

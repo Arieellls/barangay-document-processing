@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Ellipsis, LogOut } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { getAdminMenuList } from "@/lib/menu-list";
@@ -15,20 +15,29 @@ import {
   TooltipContent,
   TooltipProvider
 } from "@/components/ui/tooltip";
+import { getUserMenuList } from "@/lib/menu-list-user";
+import { useSession } from "next-auth/react";
 
 interface MenuProps {
   isOpen: boolean | undefined;
 }
 
 export function Menu({ isOpen }: MenuProps) {
+  const router = useRouter();
+  const { data: session, status } = useSession();
+  const isAdmin = session?.user.role === "admin";
+
   const pathname = usePathname();
-  const menuList = getAdminMenuList(pathname);
+  const menuListAdmin = getAdminMenuList(pathname);
+  const menuListUser = getUserMenuList(pathname);
+
+  const menu = isAdmin ? menuListAdmin : menuListUser;
 
   return (
     <ScrollArea className="[&>div>div[style]]:!block">
       <nav className="mt-8 h-full w-full">
         <ul className="flex flex-col min-h-[calc(100vh-48px-36px-16px-32px)] lg:min-h-[calc(100vh-32px-40px-32px)] items-start space-y-1 px-2">
-          {menuList.map(({ groupLabel, menus }, index) => (
+          {menu.map(({ groupLabel, menus }, index) => (
             <li className={cn("w-full", groupLabel ? "pt-5" : "")} key={index}>
               {(isOpen && groupLabel) || isOpen === undefined ? (
                 <p className="text-sm font-medium text-muted-foreground px-4 pb-2 max-w-[248px] truncate">

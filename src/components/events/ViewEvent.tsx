@@ -19,6 +19,7 @@ import { z } from "zod";
 import { Form } from "react-hook-form";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
 
 const updateSchema = z
   .object({
@@ -41,6 +42,9 @@ export default function ViewEvent({
   event: EventType;
   onClose: () => void;
 }) {
+  const { data: session, status } = useSession();
+  const isAdmin = session?.user.role === "admin";
+
   const [isEdit, setIsEdit] = useState(false);
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
@@ -210,28 +214,30 @@ export default function ViewEvent({
           />
         </div>
 
-        <DialogFooter>
-          <div className="flex justify-between w-full">
-            <div className="flex gap-2">
-              <DeleteEventDialog event={event} onClose={onClose} />
-              <Button type="button" onClick={handleEndEvent}>
-                End Event
-              </Button>
+        {isAdmin && (
+          <DialogFooter>
+            <div className="flex justify-between w-full">
+              <div className="flex gap-2">
+                <DeleteEventDialog event={event} onClose={onClose} />
+                <Button type="button" onClick={handleEndEvent}>
+                  End Event
+                </Button>
+              </div>
+              <div className="flex gap-2">
+                <Button type="button" onClick={handleEditClick}>
+                  {isEdit ? "Cancel" : "Edit Event"}
+                </Button>
+                <Button
+                  type="submit"
+                  disabled={!isEdit}
+                  className={isEdit ? "block" : "hidden"}
+                >
+                  {isEdit ? "Save changes" : "Close"}
+                </Button>
+              </div>
             </div>
-            <div className="flex gap-2">
-              <Button type="button" onClick={handleEditClick}>
-                {isEdit ? "Cancel" : "Edit Event"}
-              </Button>
-              <Button
-                type="submit"
-                disabled={!isEdit}
-                className={isEdit ? "block" : "hidden"}
-              >
-                {isEdit ? "Save changes" : "Close"}
-              </Button>
-            </div>
-          </div>
-        </DialogFooter>
+          </DialogFooter>
+        )}
       </form>
     </DialogContent>
   );

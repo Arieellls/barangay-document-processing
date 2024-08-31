@@ -1,0 +1,77 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr6q8givub4i4bos423g",
+    "operations": [
+      {
+        "set_replica_identity": {
+          "table": "nextauth_accounts",
+          "identity": {
+            "type": "full",
+            "index": ""
+          }
+        }
+      },
+      {
+        "add_column": {
+          "table": "nextauth_accounts",
+          "column": {
+            "name": "xata_createdat",
+            "type": "timestamptz",
+            "default": "now()",
+            "nullable": false
+          }
+        }
+      },
+      {
+        "add_column": {
+          "table": "nextauth_accounts",
+          "column": {
+            "name": "xata_updatedat",
+            "type": "timestamptz",
+            "default": "now()",
+            "nullable": false
+          }
+        }
+      },
+      {
+        "add_column": {
+          "table": "nextauth_accounts",
+          "column": {
+            "name": "xata_id",
+            "type": "text",
+            "check": {
+              "name": "nextauth_accounts_xata_id_length_xata_id",
+              "constraint": "length(\"xata_id\") < 256"
+            },
+            "unique": true,
+            "default": "'rec_' || xata_private.xid()",
+            "nullable": false
+          }
+        }
+      },
+      {
+        "add_column": {
+          "table": "nextauth_accounts",
+          "column": {
+            "name": "xata_version",
+            "type": "integer",
+            "default": "0",
+            "nullable": false
+          }
+        }
+      },
+      {
+        "sql": {
+          "up": "CREATE TRIGGER xata_maintain_metadata_trigger_pgroll\n  BEFORE INSERT OR UPDATE\n  ON \"nextauth_accounts\"\n  FOR EACH ROW\n  EXECUTE FUNCTION xata_private.maintain_metadata_trigger_pgroll()",
+          "onComplete": true
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr6q8givub4i4bos423g",
+  "parent": "mig_cr6q8aavub4i4bos422g",
+  "schema": "public",
+  "startedAt": "2024-08-27T10:02:43.519458Z"
+}

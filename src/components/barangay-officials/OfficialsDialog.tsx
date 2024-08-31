@@ -4,7 +4,7 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { ReactNode, useState } from "react";
 import ViewEvent from "@/components/events/ViewEvent";
 import ViewOfficials from "./ViewOfficials";
-import { OfficialType, UserType } from "@/app/admin/types/officialsType";
+import { OfficialType, UserType } from "@/app/types/officialsType";
 
 export default function OfficialsDialog({
   officialData,

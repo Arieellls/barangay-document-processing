@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { SQLiteAsyncDialect } from "drizzle-orm/sqlite-core";
 import { ReactNode, useTransition } from "react";
 import { useToast } from "../ui/use-toast";
-import { OfficialType } from "@/app/admin/types/officialsType";
+import { OfficialType } from "@/app/types/officialsType";
 import { formatFullname } from "@/lib/formatFullname";
 import { endTerm } from "@/app/actions/officials/endTerm";
 

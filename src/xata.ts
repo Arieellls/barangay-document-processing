@@ -116,6 +116,570 @@ const tables = [
     ],
   },
   {
+    name: "nextauth_accounts",
+    checkConstraints: {
+      nextauth_accounts_xata_id_length_xata_id: {
+        name: "nextauth_accounts_xata_id_length_xata_id",
+        columns: ["xata_id"],
+        definition: "CHECK ((length(xata_id) < 256))",
+      },
+    },
+    foreignKeys: {
+      user_link: {
+        name: "user_link",
+        columns: ["user"],
+        referencedTable: "nextauth_users",
+        referencedColumns: ["xata_id"],
+        onDelete: "CASCADE",
+      },
+    },
+    primaryKey: [],
+    uniqueConstraints: {
+      nextauth_accounts__pgroll_new_xata_id_key: {
+        name: "nextauth_accounts__pgroll_new_xata_id_key",
+        columns: ["xata_id"],
+      },
+    },
+    columns: [
+      {
+        name: "access_token",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "expires_at",
+        type: "int",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "id_token",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "provider",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "providerAccountId",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "refresh_token",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "scope",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "session_state",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "token_type",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "type",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "user",
+        type: "link",
+        link: { table: "nextauth_users" },
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: '{"xata.link":"nextauth_users"}',
+      },
+      {
+        name: "xata_createdat",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "xata_id",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: "('rec_'::text || (xata_private.xid())::text)",
+        comment: "",
+      },
+      {
+        name: "xata_updatedat",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "xata_version",
+        type: "int",
+        notNull: true,
+        unique: false,
+        defaultValue: "0",
+        comment: "",
+      },
+    ],
+  },
+  {
+    name: "nextauth_sessions",
+    checkConstraints: {
+      nextauth_sessions_xata_id_length_xata_id: {
+        name: "nextauth_sessions_xata_id_length_xata_id",
+        columns: ["xata_id"],
+        definition: "CHECK ((length(xata_id) < 256))",
+      },
+    },
+    foreignKeys: {
+      user_link: {
+        name: "user_link",
+        columns: ["user"],
+        referencedTable: "nextauth_users",
+        referencedColumns: ["xata_id"],
+        onDelete: "SET NULL",
+      },
+    },
+    primaryKey: [],
+    uniqueConstraints: {
+      _pgroll_new_nextauth_sessions_xata_id_key: {
+        name: "_pgroll_new_nextauth_sessions_xata_id_key",
+        columns: ["xata_id"],
+      },
+    },
+    columns: [
+      {
+        name: "expires",
+        type: "datetime",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "sessionToken",
+        type: "text",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "user",
+        type: "link",
+        link: { table: "nextauth_users" },
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: '{"xata.link":"nextauth_users"}',
+      },
+      {
+        name: "xata_createdat",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "xata_id",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: "('rec_'::text || (xata_private.xid())::text)",
+        comment: "",
+      },
+      {
+        name: "xata_updatedat",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "xata_version",
+        type: "int",
+        notNull: true,
+        unique: false,
+        defaultValue: "0",
+        comment: "",
+      },
+    ],
+  },
+  {
+    name: "nextauth_users",
+    checkConstraints: {
+      nextauth_users_xata_id_length_xata_id: {
+        name: "nextauth_users_xata_id_length_xata_id",
+        columns: ["xata_id"],
+        definition: "CHECK ((length(xata_id) < 256))",
+      },
+    },
+    foreignKeys: {},
+    primaryKey: [],
+    uniqueConstraints: {
+      nextauth_users__pgroll_new_xata_id_key: {
+        name: "nextauth_users__pgroll_new_xata_id_key",
+        columns: ["xata_id"],
+      },
+    },
+    columns: [
+      {
+        name: "email",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "emailVerified",
+        type: "datetime",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "image",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "name",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "xata_createdat",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "xata_id",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: "('rec_'::text || (xata_private.xid())::text)",
+        comment: "",
+      },
+      {
+        name: "xata_updatedat",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "xata_version",
+        type: "int",
+        notNull: true,
+        unique: false,
+        defaultValue: "0",
+        comment: "",
+      },
+    ],
+  },
+  {
+    name: "nextauth_users_accounts",
+    checkConstraints: {
+      nextauth_users_accounts_xata_id_length_xata_id: {
+        name: "nextauth_users_accounts_xata_id_length_xata_id",
+        columns: ["xata_id"],
+        definition: "CHECK ((length(xata_id) < 256))",
+      },
+    },
+    foreignKeys: {
+      account_link: {
+        name: "account_link",
+        columns: ["account"],
+        referencedTable: "nextauth_users_accounts",
+        referencedColumns: ["xata_id"],
+        onDelete: "CASCADE",
+      },
+      user_link: {
+        name: "user_link",
+        columns: ["user"],
+        referencedTable: "nextauth_users",
+        referencedColumns: ["xata_id"],
+        onDelete: "CASCADE",
+      },
+    },
+    primaryKey: [],
+    uniqueConstraints: {
+      _pgroll_new_nextauth_users_accounts_xata_id_key: {
+        name: "_pgroll_new_nextauth_users_accounts_xata_id_key",
+        columns: ["xata_id"],
+      },
+    },
+    columns: [
+      {
+        name: "account",
+        type: "link",
+        link: { table: "nextauth_users_accounts" },
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: '{"xata.link":"nextauth_users_accounts"}',
+      },
+      {
+        name: "user",
+        type: "link",
+        link: { table: "nextauth_users" },
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: '{"xata.link":"nextauth_users"}',
+      },
+      {
+        name: "xata_createdat",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "xata_id",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: "('rec_'::text || (xata_private.xid())::text)",
+        comment: "",
+      },
+      {
+        name: "xata_updatedat",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "xata_version",
+        type: "int",
+        notNull: true,
+        unique: false,
+        defaultValue: "0",
+        comment: "",
+      },
+    ],
+  },
+  {
+    name: "nextauth_users_sessions",
+    checkConstraints: {
+      nextauth_users_sessions_xata_id_length_xata_id: {
+        name: "nextauth_users_sessions_xata_id_length_xata_id",
+        columns: ["xata_id"],
+        definition: "CHECK ((length(xata_id) < 256))",
+      },
+    },
+    foreignKeys: {
+      session_link: {
+        name: "session_link",
+        columns: ["session"],
+        referencedTable: "nextauth_sessions",
+        referencedColumns: ["xata_id"],
+        onDelete: "SET NULL",
+      },
+      user_link: {
+        name: "user_link",
+        columns: ["user"],
+        referencedTable: "nextauth_users",
+        referencedColumns: ["xata_id"],
+        onDelete: "SET NULL",
+      },
+    },
+    primaryKey: [],
+    uniqueConstraints: {
+      _pgroll_new_nextauth_users_sessions_xata_id_key: {
+        name: "_pgroll_new_nextauth_users_sessions_xata_id_key",
+        columns: ["xata_id"],
+      },
+    },
+    columns: [
+      {
+        name: "session",
+        type: "link",
+        link: { table: "nextauth_sessions" },
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: '{"xata.link":"nextauth_sessions"}',
+      },
+      {
+        name: "user",
+        type: "link",
+        link: { table: "nextauth_users" },
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: '{"xata.link":"nextauth_users"}',
+      },
+      {
+        name: "xata_createdat",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "xata_id",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: "('rec_'::text || (xata_private.xid())::text)",
+        comment: "",
+      },
+      {
+        name: "xata_updatedat",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "xata_version",
+        type: "int",
+        notNull: true,
+        unique: false,
+        defaultValue: "0",
+        comment: "",
+      },
+    ],
+  },
+  {
+    name: "nextauth_verificationTokens",
+    checkConstraints: {
+      nextauth_verificationTokens_xata_id_length_xata_id: {
+        name: "nextauth_verificationTokens_xata_id_length_xata_id",
+        columns: ["xata_id"],
+        definition: "CHECK ((length(xata_id) < 256))",
+      },
+    },
+    foreignKeys: {},
+    primaryKey: [],
+    uniqueConstraints: {
+      nextauth_verificationTokens__pgroll_new_xata_id_key: {
+        name: "nextauth_verificationTokens__pgroll_new_xata_id_key",
+        columns: ["xata_id"],
+      },
+    },
+    columns: [
+      {
+        name: "expires",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "identifier",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "token",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "xata_createdat",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "xata_id",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: "('rec_'::text || (xata_private.xid())::text)",
+        comment: "",
+      },
+      {
+        name: "xata_updatedat",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "xata_version",
+        type: "int",
+        notNull: true,
+        unique: false,
+        defaultValue: "0",
+        comment: "",
+      },
+    ],
+  },
+  {
     name: "officials",
     checkConstraints: {
       officials_xata_id_length_xata_id: {
@@ -225,6 +789,14 @@ const tables = [
       },
     },
     columns: [
+      {
+        name: "claimed_date",
+        type: "datetime",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
       {
         name: "first_name",
         type: "text",
@@ -426,6 +998,14 @@ const tables = [
         comment: "",
       },
       {
+        name: "isApproved",
+        type: "bool",
+        notNull: false,
+        unique: false,
+        defaultValue: "false",
+        comment: "",
+      },
+      {
         name: "is_voter",
         type: "bool",
         notNull: false,
@@ -547,6 +1127,26 @@ export type InferredTypes = SchemaInference<SchemaTables>;
 export type Events = InferredTypes["events"];
 export type EventsRecord = Events & XataRecord;
 
+export type NextauthAccounts = InferredTypes["nextauth_accounts"];
+export type NextauthAccountsRecord = NextauthAccounts & XataRecord;
+
+export type NextauthSessions = InferredTypes["nextauth_sessions"];
+export type NextauthSessionsRecord = NextauthSessions & XataRecord;
+
+export type NextauthUsers = InferredTypes["nextauth_users"];
+export type NextauthUsersRecord = NextauthUsers & XataRecord;
+
+export type NextauthUsersAccounts = InferredTypes["nextauth_users_accounts"];
+export type NextauthUsersAccountsRecord = NextauthUsersAccounts & XataRecord;
+
+export type NextauthUsersSessions = InferredTypes["nextauth_users_sessions"];
+export type NextauthUsersSessionsRecord = NextauthUsersSessions & XataRecord;
+
+export type NextauthVerificationTokens =
+  InferredTypes["nextauth_verificationTokens"];
+export type NextauthVerificationTokensRecord = NextauthVerificationTokens &
+  XataRecord;
+
 export type Officials = InferredTypes["officials"];
 export type OfficialsRecord = Officials & XataRecord;
 
@@ -558,6 +1158,12 @@ export type UsersRecord = Users & XataRecord;
 
 export type DatabaseSchema = {
   events: EventsRecord;
+  nextauth_accounts: NextauthAccountsRecord;
+  nextauth_sessions: NextauthSessionsRecord;
+  nextauth_users: NextauthUsersRecord;
+  nextauth_users_accounts: NextauthUsersAccountsRecord;
+  nextauth_users_sessions: NextauthUsersSessionsRecord;
+  nextauth_verificationTokens: NextauthVerificationTokensRecord;
   officials: OfficialsRecord;
   requested_documents: RequestedDocumentsRecord;
   users: UsersRecord;

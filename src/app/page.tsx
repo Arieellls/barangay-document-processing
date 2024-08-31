@@ -5,8 +5,14 @@ import { ArrowRightIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
+import { auth } from "@/auth";
+import getSession from "@/lib/getSession";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const session = await getSession();
+  const user = session?.user;
+  console.log("This is from HomePage", user);
+
   return (
     <div className="flex flex-col min-h-screen">
       <header className="z-[50] sticky top-0 w-full bg-background/95 border-b backdrop-blur-sm dark:bg-black/[0.6] border-border/40">
@@ -37,15 +43,37 @@ export default function HomePage() {
               requests, approvals, and issuance.
             </span>
             <div className="flex w-full items-center justify-center space-x-4 py-4 md:pb-6">
-              <Button variant="default" asChild>
-                <Link href="/admin/dashboard">
-                  Login
-                  <ArrowRightIcon className="ml-2" />
-                </Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/signup">Sign up</Link>
-              </Button>
+              {!user ? (
+                <>
+                  <Button variant="default" asChild>
+                    <Link href="/login">
+                      Login
+                      <ArrowRightIcon className="ml-2" />
+                    </Link>
+                  </Button>
+                  <Button variant="outline" asChild>
+                    <Link href="/signup">Sign up</Link>
+                  </Button>
+                </>
+              ) : (
+                <>
+                  {user.role === "admin" ? (
+                    <Button variant="default" asChild>
+                      <Link href="/admin/dashboard">
+                        Explore
+                        <ArrowRightIcon className="ml-2" />
+                      </Link>
+                    </Button>
+                  ) : (
+                    <Button variant="default" asChild>
+                      <Link href="/dashboard">
+                        Explore
+                        <ArrowRightIcon className="ml-2" />
+                      </Link>
+                    </Button>
+                  )}
+                </>
+              )}
             </div>
           </section>
           <div className="w-full flex justify-center relative">

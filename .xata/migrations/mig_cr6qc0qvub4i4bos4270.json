@@ -1,0 +1,20 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr6qc0qvub4i4bos4270",
+    "operations": [
+      {
+        "drop_column": {
+          "down": "''",
+          "table": "nextauth_users",
+          "column": "emailVerified"
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr6qc0qvub4i4bos4270",
+  "parent": "mig_cr6qbh2tghn0j3o3epb0",
+  "schema": "public",
+  "startedAt": "2024-08-27T10:10:12.262913Z"
+}
