@@ -52,7 +52,7 @@ export default async function HomePage() {
                     </Link>
                   </Button>
                   <Button variant="outline" asChild>
-                    <Link href="/signup">Sign up</Link>
+                    <Link href="/register">Sign up</Link>
                   </Button>
                 </>
               ) : (
