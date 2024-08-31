@@ -20,8 +20,21 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
+import { signOut, useSession } from "next-auth/react";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 export function UserNav() {
+  const { data: session, status } = useSession();
+  const user = session?.user;
+  console.log(user);
+
+  if (!user && status !== "loading") {
+    redirect("/login");
+  }
+
+  const initial = getUserInitials(user?.name || "");
+
   return (
     <DropdownMenu>
       <TooltipProvider disableHoverableContent>
@@ -34,7 +47,9 @@ export function UserNav() {
               >
                 <Avatar className="h-8 w-8">
                   <AvatarImage src="#" alt="Avatar" />
-                  <AvatarFallback className="bg-transparent">AR</AvatarFallback>
+                  <AvatarFallback className="bg-transparent">
+                    {initial}
+                  </AvatarFallback>
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
@@ -46,11 +61,9 @@ export function UserNav() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">
-              Arielito Manorina
-            </p>
+            <p className="text-sm font-medium leading-none">{user?.name}</p>
             <p className="text-xs leading-none text-muted-foreground">
-              aryelll@example.com
+              {user?.email}
             </p>
           </div>
         </DropdownMenuLabel>
@@ -70,11 +83,29 @@ export function UserNav() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="hover:cursor-pointer" onClick={() => {}}>
+        <DropdownMenuItem
+          className="hover:cursor-pointer"
+          onClick={async () => {
+            await signOut();
+          }}
+        >
           <LogOut className="w-4 h-4 mr-3 text-muted-foreground" />
           Sign out
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
+}
+
+function getUserInitials(name: string) {
+  if (!name) return null;
+
+  const nameParts = name.split(" ");
+
+  const initials =
+    nameParts.length > 1
+      ? `${nameParts[0][0]}${nameParts[nameParts.length - 1][0]}`
+      : nameParts[0][0];
+
+  return initials.toUpperCase();
 }

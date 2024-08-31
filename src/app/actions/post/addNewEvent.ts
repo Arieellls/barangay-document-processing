@@ -2,10 +2,10 @@
 
 import { z } from "zod";
 import { v4 as uuidv4 } from "uuid";
-import { drizzle } from "drizzle-orm/xata-http";
-import { getXataClient } from "@/xata";
 import { Events } from "@/db/schemas";
 import { revalidatePath } from "next/cache";
+import { drizzle } from "drizzle-orm/xata-http";
+import { getXataClient } from "@/xata";
 
 const xata = getXataClient();
 const db = drizzle(xata);

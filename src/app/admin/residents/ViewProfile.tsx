@@ -15,7 +15,7 @@ import Image from "next/image";
 import { SexOptions } from "./SexOptions";
 import { StatusOptions } from "./StatusOptions";
 import { formatDate } from "@/lib/formatDate";
-import { UserType } from "../types/officialsType";
+import { UserType } from "../../types/officialsType";
 
 export default function ViewProfile({
   resident,

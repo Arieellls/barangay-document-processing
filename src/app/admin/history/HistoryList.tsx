@@ -37,8 +37,9 @@ export async function HistoryList() {
           <TableHead className="sm:hidden w-[50px] text-center"></TableHead>
           <TableHead className="w-[250px]">Full Name</TableHead>
           <TableHead>Purpose</TableHead>
-          <TableHead>Pick-up Date</TableHead>
           <TableHead>Service Type</TableHead>
+          <TableHead>Pick-up Date</TableHead>
+          <TableHead>Claimed Date</TableHead>
           <TableHead className="text-left">Status</TableHead>
           {/* Desktop actions */}
           <TableHead className="hidden sm:table-cell w-[50px] text-center">
@@ -70,8 +71,9 @@ export async function HistoryList() {
               })}
             </TableCell>
             <TableCell>{request.purpose}</TableCell>
-            <TableCell>{formatDate(new Date(request.pickupDate))}</TableCell>
             <TableCell>{request.serviceType}</TableCell>
+            <TableCell>{formatDate(new Date(request.pickupDate))}</TableCell>
+            <TableCell>{formatDate(new Date(request.claimedDate))}</TableCell>
             <TableCell
               className={`text-left ${
                 request.status === "Pending"

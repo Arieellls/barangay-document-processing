@@ -1,0 +1,60 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr6qcmivub4i4bos4280",
+    "operations": [
+      {
+        "create_table": {
+          "name": "nextauth_accounts",
+          "columns": [
+            {
+              "name": "type",
+              "type": "text"
+            },
+            {
+              "name": "provider",
+              "type": "text"
+            },
+            {
+              "name": "providerAccountId",
+              "type": "text"
+            },
+            {
+              "name": "refresh_token",
+              "type": "text"
+            },
+            {
+              "name": "access_token",
+              "type": "text"
+            },
+            {
+              "name": "expires_at",
+              "type": "int"
+            },
+            {
+              "name": "token_type",
+              "type": "text"
+            },
+            {
+              "name": "scope",
+              "type": "text"
+            },
+            {
+              "name": "id_token",
+              "type": "text"
+            },
+            {
+              "name": "session_state",
+              "type": "text"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr6qcmivub4i4bos4280",
+  "parent": "mig_cr6qc44n2urj4brhtbpg",
+  "schema": "public",
+  "startedAt": "2024-08-27T10:11:38.637562Z"
+}

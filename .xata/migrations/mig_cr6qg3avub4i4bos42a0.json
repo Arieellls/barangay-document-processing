@@ -1,0 +1,32 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr6qg3avub4i4bos42a0",
+    "operations": [
+      {
+        "create_table": {
+          "name": "nextauth_verificationTokens",
+          "columns": [
+            {
+              "name": "identifier",
+              "type": "text"
+            },
+            {
+              "name": "token",
+              "type": "text"
+            },
+            {
+              "name": "expires",
+              "type": "timestamptz"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr6qg3avub4i4bos42a0",
+  "parent": "mig_cr6qdgatghn0j3o3epc0",
+  "schema": "public",
+  "startedAt": "2024-08-27T10:18:53.486404Z"
+}

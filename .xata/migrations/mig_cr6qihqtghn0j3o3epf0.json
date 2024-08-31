@@ -1,0 +1,26 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr6qihqtghn0j3o3epf0",
+    "operations": [
+      {
+        "add_column": {
+          "table": "nextauth_sessions",
+          "column": {
+            "pk": false,
+            "name": "expires",
+            "type": "timestamptz",
+            "unique": false,
+            "comment": "",
+            "nullable": true
+          }
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr6qihqtghn0j3o3epf0",
+  "parent": "mig_cr6qifcn2urj4brhtbt0",
+  "schema": "public",
+  "startedAt": "2024-08-27T10:24:07.936447Z"
+}

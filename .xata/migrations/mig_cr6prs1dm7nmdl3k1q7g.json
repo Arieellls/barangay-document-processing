@@ -1,0 +1,26 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr6prs1dm7nmdl3k1q7g",
+    "operations": [
+      {
+        "add_column": {
+          "table": "nextauth_users",
+          "column": {
+            "pk": false,
+            "name": "emailVerified",
+            "type": "timestamptz",
+            "unique": false,
+            "comment": "",
+            "nullable": true
+          }
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr6prs1dm7nmdl3k1q7g",
+  "parent": "mig_cr6prohdm7nmdl3k1q6g",
+  "schema": "public",
+  "startedAt": "2024-08-27T09:35:44.373147Z"
+}

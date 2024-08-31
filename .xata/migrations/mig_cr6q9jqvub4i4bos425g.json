@@ -1,0 +1,18 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cr6q9jqvub4i4bos425g",
+    "operations": [
+      {
+        "drop_table": {
+          "name": "nextauth_accounts"
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cr6q9jqvub4i4bos425g",
+  "parent": "mig_cr6q8givub4i4bos423g",
+  "schema": "public",
+  "startedAt": "2024-08-27T10:05:04.096305Z"
+}
