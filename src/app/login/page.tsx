@@ -18,19 +18,20 @@ export default function Login() {
 
   const { data: session, status } = useSession();
   const user = session?.user;
-
-  useEffect(() => {
-    if (user && status !== "loading") {
-      router.push("/"); // Using router.push for client-side navigation
-    }
-  }, [user, status, router]);
-
-  if (status === "loading") {
-    return null; // Show a loading state while checking session
+  if (status !== "loading") {
+    console.log(user);
   }
 
-  if (user) {
-    return null; // Optionally return null if the user is logged in
+  useEffect(() => {
+    if (status === "loading") return;
+
+    if (session?.user) {
+      router.push("/");
+    }
+  }, [status, session, router]);
+
+  if (status === "loading") {
+    return null;
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

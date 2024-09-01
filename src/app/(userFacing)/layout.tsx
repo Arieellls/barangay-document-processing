@@ -1,10 +1,5 @@
-import { auth } from "@/auth";
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import getSession from "@/lib/getSession";
-import { Session } from "next-auth";
-import { User } from "next-auth";
-import { useSession } from "next-auth/react";
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export default async function DemoLayout({
