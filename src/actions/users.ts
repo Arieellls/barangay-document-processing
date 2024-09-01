@@ -8,6 +8,8 @@ import { z } from "zod";
 import { v4 as uuidv4 } from "uuid";
 import { hash } from "bcryptjs";
 import { signIn } from "@/auth";
+import getSession from "@/lib/getSession";
+import { redirect } from "next/navigation";
 
 const xata = getXataClient();
 const db = drizzle(xata);

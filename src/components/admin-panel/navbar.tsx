@@ -1,12 +1,15 @@
 import { ModeToggle } from "@/components/mode-toggle";
 import { UserNav } from "@/components/admin-panel/user-nav";
 import { SheetMenu } from "@/components/admin-panel/sheet-menu";
+import getSession from "@/lib/getSession";
 
 interface NavbarProps {
   title: string;
 }
 
-export function Navbar({ title }: NavbarProps) {
+export async function Navbar({ title }: NavbarProps) {
+  const session = await getSession();
+  const user = session?.user;
   return (
     <header className="sticky top-0 z-10 w-full bg-background/95 shadow backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:shadow-secondary">
       <div className="mx-4 sm:mx-8 flex h-14 items-center">
@@ -16,7 +19,7 @@ export function Navbar({ title }: NavbarProps) {
         </div>
         <div className="flex flex-1 items-center space-x-2 justify-end">
           <ModeToggle />
-          <UserNav />
+          <UserNav user={user} />
         </div>
       </div>
     </header>
