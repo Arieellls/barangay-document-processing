@@ -3,7 +3,7 @@
 import { Documents } from "@/db/schemas";
 import { getXataClient } from "@/xata";
 import { drizzle } from "drizzle-orm/xata-http";
-import { eq, ne } from "drizzle-orm/expressions";
+import { and, asc, desc, eq, ne } from "drizzle-orm/expressions";
 
 const xata = getXataClient();
 const db = drizzle(xata);
@@ -28,6 +28,36 @@ export const getAllCompletedRequests = async () => {
       .select()
       .from(Documents)
       .where(eq(Documents.status, "Released"));
+
+    return requests;
+  } catch (error) {
+    console.error("Error fetching requests:", error);
+    return [];
+  }
+};
+
+export const getUserRequest = async (id: string) => {
+  try {
+    const requests = await db
+      .select()
+      .from(Documents)
+      .where(and(eq(Documents.userId, id), ne(Documents.status, "Released")))
+      .orderBy(desc(Documents.createdAt));
+
+    return requests;
+  } catch (error) {
+    console.error("Error fetching requests:", error);
+    return [];
+  }
+};
+
+export const getUserRequestHistory = async (id: string) => {
+  try {
+    const requests = await db
+      .select()
+      .from(Documents)
+      .where(and(eq(Documents.userId, id), eq(Documents.status, "Released")))
+      .orderBy(desc(Documents.createdAt));
 
     return requests;
   } catch (error) {

@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/tooltip";
 import { getUserMenuList } from "@/lib/menu-list-user";
 import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 interface MenuProps {
   isOpen: boolean | undefined;
@@ -26,6 +27,10 @@ export function Menu({ isOpen }: MenuProps) {
   const router = useRouter();
   const { data: session, status } = useSession();
   const isAdmin = session?.user.role === "admin";
+
+  // useEffect(() => {
+  //   location.reload();
+  // }, []);
 
   const pathname = usePathname();
   const menuListAdmin = getAdminMenuList(pathname);

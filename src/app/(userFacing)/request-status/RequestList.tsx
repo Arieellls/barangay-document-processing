@@ -18,11 +18,16 @@ import {
 import { formatFullname } from "@/lib/formatFullname";
 import { MoreVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getAllRequests } from "@/app/actions/documents/getRequests";
+import {
+  getAllRequests,
+  getUserRequest
+} from "@/app/actions/documents/getRequests";
 import { formatDate } from "@/lib/formatDate";
+import getSession from "@/lib/getSession";
 
 export async function RequestList() {
-  const requests = await getAllRequests();
+  const session = await getSession();
+  const requests = await getUserRequest(session?.user.id || "");
 
   return (
     <Table>
@@ -31,8 +36,9 @@ export async function RequestList() {
         <TableRow>
           <TableHead className="w-[250px]">Full Name</TableHead>
           <TableHead>Purpose</TableHead>
-          <TableHead>Pick-up Date</TableHead>
           <TableHead>Service Type</TableHead>
+          <TableHead>Pick-up Date</TableHead>
+          <TableHead>Claimed Date</TableHead>
           <TableHead className="text-left">Status</TableHead>
         </TableRow>
       </TableHeader>
@@ -46,9 +52,19 @@ export async function RequestList() {
                 lastName: request.lastName
               })}
             </TableCell>
-            <TableCell>{request.purpose}</TableCell>
-            <TableCell>{formatDate(new Date(request.pickupDate))}</TableCell>
+            <TableCell>
+              {request.purpose === "Other"
+                ? request.additionalDetails
+                : request.purpose}
+            </TableCell>
             <TableCell>{request.serviceType}</TableCell>
+            <TableCell>{formatDate(new Date(request.pickupDate))}</TableCell>
+            <TableCell>
+              {request.claimedDate
+                ? formatDate(new Date(request.claimedDate))
+                : "N/A"}
+            </TableCell>
+
             <TableCell
               className={`text-left ${
                 request.status === "Pending"

@@ -21,19 +21,15 @@ import {
 
 const sexList = [
   {
-    value: "male",
-    label: "Male"
+    value: "voter",
+    label: "Voter"
   },
   {
-    value: "female",
-    label: "Female"
-  },
-  {
-    value: "other",
-    label: "Other"
+    value: "non-voter",
+    label: "Non-Voter"
   }
 ];
-export function SexOptions({
+export function VoterOptions({
   value,
   onChange
 }: {
@@ -51,7 +47,9 @@ export function SexOptions({
           aria-expanded={open}
           className="justify-between w-full text-muted-foreground font-light"
         >
-          {value ? sexList.find((sex) => sex.value === value)?.label : "Sex"}
+          {value
+            ? sexList.find((sex) => sex.value === value)?.label
+            : "Voter Status"}
           <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
         </Button>
       </PopoverTrigger>

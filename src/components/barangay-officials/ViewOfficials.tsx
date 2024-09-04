@@ -19,6 +19,8 @@ import { Loader2 } from "lucide-react";
 import { EndTermDialog } from "./EndTermDialog";
 import { formatDate } from "@/lib/formatDate";
 import { useSession } from "next-auth/react";
+import ImageCover from "../Image";
+import Image from "next/image";
 
 export default function ViewOfficials({
   officialData,
@@ -46,13 +48,30 @@ export default function ViewOfficials({
   return (
     <DialogContent className="max-w-sm sm:max-w-[600px] rounded-lg">
       <DialogHeader>
-        <DialogTitle>Event Information</DialogTitle>
+        <DialogTitle>Official Information</DialogTitle>
         <DialogDescription>
           Make changes to your officials' details here. Click save when you are
           done.
         </DialogDescription>
       </DialogHeader>
       <div className="grid gap-4 py-4">
+        <div className="relative flex items-center justify-center w-full auto aspect-video">
+          {!officialData.imageId ? (
+            <Image
+              src={"/Profile Default.png"}
+              width={200}
+              height={200}
+              alt="Profile Picture"
+              className="border-2 rounded-sm border-muted-foreground"
+            />
+          ) : (
+            <ImageCover
+              publicId={officialData.imageId}
+              className="object-center border-2 border-gray-600 aspect-square"
+              size={250}
+            />
+          )}
+        </div>
         <div className="grid items-center grid-cols-4 gap-4">
           <Label htmlFor="name" className="text-right">
             Official Name

@@ -18,29 +18,36 @@ import {
   PopoverContent,
   PopoverTrigger
 } from "@/components/ui/popover";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
-const sexList = [
+const statuses = [
   {
-    value: "male",
-    label: "Male"
+    value: "all",
+    label: "All Events"
   },
   {
-    value: "female",
-    label: "Female"
+    value: "ongoing",
+    label: "On Going"
   },
   {
-    value: "other",
-    label: "Other"
+    value: "completed",
+    label: "Completed"
   }
 ];
-export function SexOptions({
-  value,
-  onChange
-}: {
-  value: string;
-  onChange: (value: string) => void;
-}) {
+
+export default function ServiceType() {
+  const router = useRouter();
+
   const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState("all");
+
+  const handleSelect = (currentValue: string) => {
+    setValue(currentValue);
+    setOpen(false);
+
+    router.push("/events?status=");
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -49,32 +56,30 @@ export function SexOptions({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="justify-between w-full text-muted-foreground font-light"
+          className="w-[200px] justify-between"
         >
-          {value ? sexList.find((sex) => sex.value === value)?.label : "Sex"}
+          {statuses.find((state) => state.value === value)?.label || "Status"}
           <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandList>
+            <CommandEmpty>No status found.</CommandEmpty>
             <CommandGroup>
-              {sexList.map((sex) => (
+              {statuses.map((state) => (
                 <CommandItem
-                  key={sex.value}
-                  value={sex.value}
-                  onSelect={(currentValue) => {
-                    onChange(currentValue === value ? "" : currentValue);
-                    setOpen(false);
-                  }}
+                  key={state.value}
+                  value={state.value}
+                  onSelect={() => handleSelect(state.value)}
                 >
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value === sex.value ? "opacity-100" : "opacity-0"
+                      value === state.value ? "opacity-100" : "opacity-0"
                     )}
                   />
-                  {sex.label}
+                  {state.label}
                 </CommandItem>
               ))}
             </CommandGroup>

@@ -19,21 +19,25 @@ import {
   PopoverTrigger
 } from "@/components/ui/popover";
 
-const sexList = [
+const purposes = [
   {
-    value: "male",
-    label: "Male"
+    value: "Job Hunting",
+    label: "Job Hunting"
   },
   {
-    value: "female",
-    label: "Female"
+    value: "Educational Assistance",
+    label: "Educational Assistance"
   },
   {
-    value: "other",
+    value: "Financial Assistance",
+    label: "Financial Assistance"
+  },
+  {
+    value: "Other",
     label: "Other"
   }
 ];
-export function SexOptions({
+export function PurposeOptions({
   value,
   onChange
 }: {
@@ -49,20 +53,22 @@ export function SexOptions({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="justify-between w-full text-muted-foreground font-light"
+          className="justify-between w-full font-light"
         >
-          {value ? sexList.find((sex) => sex.value === value)?.label : "Sex"}
+          {value
+            ? purposes.find((purpose) => purpose.value === value)?.label
+            : "Select Purpose"}
           <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-[250px] left-0 p-0">
         <Command>
           <CommandList>
             <CommandGroup>
-              {sexList.map((sex) => (
+              {purposes.map((purpose) => (
                 <CommandItem
-                  key={sex.value}
-                  value={sex.value}
+                  key={purpose.value}
+                  value={purpose.value}
                   onSelect={(currentValue) => {
                     onChange(currentValue === value ? "" : currentValue);
                     setOpen(false);
@@ -71,10 +77,10 @@ export function SexOptions({
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value === sex.value ? "opacity-100" : "opacity-0"
+                      value === purpose.value ? "opacity-100" : "opacity-0"
                     )}
                   />
-                  {sex.label}
+                  {purpose.label}
                 </CommandItem>
               ))}
             </CommandGroup>

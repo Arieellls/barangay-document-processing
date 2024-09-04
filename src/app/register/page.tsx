@@ -24,6 +24,8 @@ import { redirect, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
+import { StatusOptions } from "../admin/residents/StatusOptions";
+import { VoterOptions } from "../admin/residents/VoterOptions";
 
 export default function Register() {
   const [isPending, startTransition] = useTransition();
@@ -37,11 +39,40 @@ export default function Register() {
     }
   }, [session, router]);
 
-  const handleSubmit = async (data: z.infer<typeof registerSchema>) => {
-    console.log("Form submitted with data:", data);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [sexValue, setSexValue] = useState<string>("");
+  const [statusValue, setStatusValue] = useState<string>("");
+  const [voterStatusValue, setVoterStatusValue] = useState<string>("");
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files ? event.target.files[0] : null;
+    setSelectedFile(file);
+
+    if (file) {
+      const previewUrl = URL.createObjectURL(file);
+      setImagePreview(previewUrl);
+    } else {
+      setImagePreview(null);
+    }
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+
+    if (selectedFile) {
+      formData.append("imageId", selectedFile);
+    }
+
+    formData.append("sex", sexValue);
+    formData.append("status", statusValue);
+    formData.append("isVoter", voterStatusValue);
+
     startTransition(async () => {
       try {
-        let errors = await registerAccount(data);
+        let errors = await registerAccount(formData);
         if (errors) {
           console.log("Errors from server:", errors);
         } else {
@@ -60,8 +91,9 @@ export default function Register() {
 
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
+    mode: "onChange",
     defaultValues: {
-      // imageId: null,
+      imageId: undefined,
       username: "",
       password: "",
       confirmPassword: "",
@@ -84,7 +116,7 @@ export default function Register() {
     }
   });
 
-  const { control, setValue, watch } = form;
+  const { control, setValue, watch, trigger } = form;
 
   const birthday = watch("birthday");
 
@@ -115,17 +147,40 @@ export default function Register() {
     <div className="min-h-screen w-full flex justify-center items-center">
       <div className="w-[800px] border-2 border-muted rounded-lg px-5 py-8">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)}>
+          <form onSubmit={handleSubmit}>
             <div className="flex flex-col h-auto gap-4 mb-3 sm:flex-row">
               <div className="flex flex-col items-center justify-center h-full gap-3 sm:items-start">
-                <Image
-                  src={"/Arielito Manorina.png"}
-                  width={200}
-                  height={200}
-                  alt="Arielito"
-                  className="border-2 rounded-sm border-muted "
+                {imagePreview ? (
+                  <div className="relative w-52 h-52 border-2 rounded-sm border-muted overflow-hidden">
+                    <Image
+                      src={imagePreview}
+                      alt="Profile Preview"
+                      layout="fill"
+                      objectFit="cover"
+                      className="absolute inset-0"
+                    />
+                  </div>
+                ) : (
+                  <Image
+                    src={"/Profile Default.png"}
+                    width={200}
+                    height={200}
+                    alt="Arielito"
+                    className="border-2 rounded-sm border-muted "
+                  />
+                )}
+                <Label
+                  htmlFor="imageId"
+                  className="text-muted-foreground font-light"
+                >
+                  Profile Picture
+                </Label>
+                <Input
+                  type="file"
+                  id="imageId"
+                  name="imageId"
+                  onChange={handleFileChange}
                 />
-                <Input id="profile-image" type="file" />
               </div>
 
               <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 auto-rows-min gap-y-2">
@@ -241,18 +296,21 @@ export default function Register() {
                 />
               </div>
               <div className="box-border flex flex-col items-start gap-2">
-                <FormField
-                  control={form.control}
+                <Controller
                   name="sex"
+                  control={form.control}
                   render={({ field }) => (
                     <FormItem className="w-full space-y-0">
                       <FormLabel className="text-muted-foreground font-light">
                         Sex
                       </FormLabel>
-                      <FormControl>
-                        {/* <SexOptions /> */}
-                        <Input id="sex" {...field} />
-                      </FormControl>
+                      <SexOptions
+                        value={field.value || ""}
+                        onChange={(newSexValue) => {
+                          field.onChange(newSexValue);
+                          setSexValue(newSexValue);
+                        }}
+                      />
                       <FormMessage />
                     </FormItem>
                   )}
@@ -335,10 +393,13 @@ export default function Register() {
                       <FormLabel className="text-muted-foreground font-light">
                         Status
                       </FormLabel>
-                      <FormControl>
-                        <Input id="status" {...field} />
-                      </FormControl>
-                      <FormMessage />
+                      <StatusOptions
+                        value={field.value || ""}
+                        onChange={(newStatusValue) => {
+                          field.onChange(newStatusValue);
+                          setStatusValue(newStatusValue);
+                        }}
+                      />
                     </FormItem>
                   )}
                 />
@@ -394,9 +455,13 @@ export default function Register() {
                       <FormLabel className="text-muted-foreground font-light">
                         Voter Status
                       </FormLabel>
-                      <FormControl>
-                        <Input id="isVoter" {...field} />
-                      </FormControl>
+                      <VoterOptions
+                        value={field.value || ""}
+                        onChange={(newStatusValue) => {
+                          field.onChange(newStatusValue);
+                          setVoterStatusValue(newStatusValue);
+                        }}
+                      />
                       <FormMessage />
                     </FormItem>
                   )}
