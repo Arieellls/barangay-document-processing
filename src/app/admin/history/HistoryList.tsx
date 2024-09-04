@@ -73,7 +73,11 @@ export async function HistoryList() {
             <TableCell>{request.purpose}</TableCell>
             <TableCell>{request.serviceType}</TableCell>
             <TableCell>{formatDate(new Date(request.pickupDate))}</TableCell>
-            <TableCell>{formatDate(new Date(request.claimedDate))}</TableCell>
+            <TableCell>
+              {request.claimedDate
+                ? formatDate(new Date(request.claimedDate))
+                : "N/A"}
+            </TableCell>
             <TableCell
               className={`text-left ${
                 request.status === "Pending"
