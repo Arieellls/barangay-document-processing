@@ -1,10 +1,3 @@
-import { getAllResidents } from "@/app/actions/getResidents";
-import {
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuContent
-} from "@/components/ui/dropdown-menu";
 import {
   Table,
   TableBody,
@@ -16,16 +9,13 @@ import {
   TableRow
 } from "@/components/ui/table";
 import { formatFullname } from "@/lib/formatFullname";
-import { MoreVertical } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  getAllCompletedRequests,
-  getAllRequests
-} from "@/app/actions/documents/getRequests";
+import { getUserRequestHistory } from "@/app/actions/documents/getRequests";
 import { formatDate } from "@/lib/formatDate";
+import getSession from "@/lib/getSession";
 
 export async function HistoryList() {
-  const requests = await getAllCompletedRequests();
+  const session = await getSession();
+  const requests = await getUserRequestHistory(session?.user.id || "");
 
   return (
     <Table>
@@ -50,10 +40,19 @@ export async function HistoryList() {
                 lastName: request.lastName
               })}
             </TableCell>
-            <TableCell>{request.purpose}</TableCell>
+            <TableCell>
+              {request.purpose === "Other"
+                ? request.additionalDetails
+                : request.purpose}
+            </TableCell>
             <TableCell>{request.serviceType}</TableCell>
             <TableCell>{formatDate(new Date(request.pickupDate))}</TableCell>
-            <TableCell>{formatDate(new Date(request.claimedDate))}</TableCell>
+            <TableCell>
+              {request.claimedDate
+                ? formatDate(new Date(request.claimedDate))
+                : "N/A"}
+            </TableCell>
+
             <TableCell
               className={`text-left ${
                 request.status === "Pending"

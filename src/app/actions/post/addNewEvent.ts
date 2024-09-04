@@ -25,12 +25,11 @@ const addSchema = z
   });
 
 export async function addNewEvent(formData: z.infer<typeof addSchema>) {
-  // Validate the data
   const result = addSchema.safeParse(formData);
 
   if (!result.success) {
     console.log(result.error.format());
-    return result.error.format(); // Return errors if validation fails
+    return result.error.format();
   }
 
   const data = result.data;

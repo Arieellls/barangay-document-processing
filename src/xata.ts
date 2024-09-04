@@ -790,6 +790,14 @@ const tables = [
     },
     columns: [
       {
+        name: "additional_details",
+        type: "text",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
         name: "claimed_date",
         type: "datetime",
         notNull: false,
@@ -998,7 +1006,7 @@ const tables = [
         comment: "",
       },
       {
-        name: "isApproved",
+        name: "is_approved",
         type: "bool",
         notNull: false,
         unique: false,

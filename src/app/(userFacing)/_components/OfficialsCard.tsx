@@ -9,6 +9,7 @@ import {
 import { formatFullname } from "@/lib/formatFullname";
 import Image from "next/image";
 import { OfficialType } from "../../types/officialsType";
+import ImageCover from "@/components/Image";
 
 export default async function OfficialsCard() {
   const _officials = await getAllOfficials();
@@ -31,16 +32,24 @@ export default async function OfficialsCard() {
             officialData={officialData}
             className="sm:w-48 w-44"
           >
-            <Card className="w-full h-full text-left overflow-hidden">
+            <Card className="w-full h-full overflow-hidden text-left">
               <CardHeader className="px-4">
-                <div className="relative w-full auto aspect-video flex items-center">
-                  <Image
-                    src="/Arielito Manorina.png"
-                    alt="Officials Photo"
-                    width={80}
-                    height={80}
-                    className="object-center rounded-full border-2 border-gray-600"
-                  />
+                <div className="relative flex items-center w-full auto aspect-video">
+                  {!official.users.imageId ? (
+                    <Image
+                      src={"/Profile Default.png"}
+                      width={200}
+                      height={200}
+                      alt="Profile Picture"
+                      className="border-2 rounded-sm border-muted-foreground"
+                    />
+                  ) : (
+                    <ImageCover
+                      publicId={official.users.imageId}
+                      className="absolute inset-0 object-center border-2 border-gray-600 rounded-full aspect-square"
+                      size={80}
+                    />
+                  )}
                 </div>
                 <CardTitle className="p-0 m-0 text-[1rem] leading-4">
                   {formatFullname({

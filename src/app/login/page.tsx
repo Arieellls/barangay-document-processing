@@ -10,6 +10,7 @@ import Link from "next/link";
 import { login } from "@/actions/users";
 import { auth } from "@/auth";
 import { useSession } from "next-auth/react";
+import { revalidatePath } from "next/cache";
 
 export default function Login() {
   const [error, setError] = useState<string | null>(null);
@@ -45,7 +46,8 @@ export default function Login() {
       if (errorResponse) {
         setError(errorResponse);
       } else {
-        router.push("/"); // Use router.push here as well
+        location.reload();
+        router.push("/");
       }
     });
   };

@@ -1,4 +1,3 @@
-import { getAllResidents } from "@/app/actions/getResidents";
 import {
   DropdownMenu,
   DropdownMenuItem,
@@ -17,12 +16,13 @@ import {
 } from "@/components/ui/table";
 import { formatFullname } from "@/lib/formatFullname";
 import { MoreVertical } from "lucide-react";
-import ViewProfileDialog from "./ViewProfileDialog";
 import { Button } from "@/components/ui/button";
-import { capitalizeFirstLetter } from "@/lib/formatFirstLetter";
+import ApprovalDialog from "./ApprovalDialog";
+import { ApproveAccountItem, DeclineAccountItem } from "./AccountActions";
+import { getAccountForApproval } from "@/app/actions/approval/approval-actions";
 
-export async function ResidentsList() {
-  const residents = await getAllResidents();
+export async function ApprovalList() {
+  const residents = await getAccountForApproval();
 
   return (
     <Table>
@@ -69,7 +69,7 @@ export async function ResidentsList() {
             </TableCell>
             <TableCell>{resident.contactNumber}</TableCell>
             <TableCell>{resident.emailAddress}</TableCell>
-            <TableCell>{capitalizeFirstLetter(resident.gender)}</TableCell>
+            <TableCell>{resident.gender}</TableCell>
             <TableCell>{resident.age}</TableCell>
             <TableCell>{resident.purok}</TableCell>
             <TableCell className="text-left">
@@ -85,15 +85,22 @@ export async function ResidentsList() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   {/* <DropdownMenuItem> */}
-                  <ViewProfileDialog resident={resident} className="w-full">
+                  <ApprovalDialog
+                    resident={resident}
+                    className="w-full text-left"
+                  >
                     <Button
                       variant="default"
-                      className="relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors w-full hover:bg-accent hover:text-accent-foreground bg-transparent text-accent-foreground"
+                      className="relative flex items-center justify-start w-full py-1 text-sm text-left transition-colors bg-transparent rounded-sm outline-none cursor-default hover:bg-accent hover:text-accent-foreground text-accent-foreground"
                     >
-                      View Profile
+                      <span className="absolute left-0 block px-2 text-left">
+                        View Profile
+                      </span>
                     </Button>
-                  </ViewProfileDialog>
+                  </ApprovalDialog>
                   {/* </DropdownMenuItem> */}
+                  <ApproveAccountItem id={resident.id} />
+                  <DeclineAccountItem id={resident.id} />
                 </DropdownMenuContent>
               </DropdownMenu>
             </TableCell>

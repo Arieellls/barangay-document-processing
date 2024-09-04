@@ -16,7 +16,7 @@ type Props = {
 };
 
 export default async function EventCard({ searchParams }: Props) {
-  let _events = await getOnGoingEvents(); // Fetch on going events as default
+  let _events = await getOnGoingEvents();
 
   if (searchParams === "all") {
     _events = await getAllEvents();

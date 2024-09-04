@@ -1,0 +1,19 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_crbaedaeko8tn2ljrdl0",
+    "operations": [
+      {
+        "drop_column": {
+          "table": "users",
+          "column": "isApproved"
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_crbaedaeko8tn2ljrdl0",
+  "parent": "mig_crb9fqjlk11lji5dkevg",
+  "schema": "public",
+  "startedAt": "2024-09-03T06:05:42.372542Z"
+}

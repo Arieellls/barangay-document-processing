@@ -9,16 +9,13 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState, useTransition } from "react";
-import { formatFullname } from "@/lib/formatFullname";
 import { useToast } from "@/components/ui/use-toast";
 import Image from "next/image";
-import { SexOptions } from "./SexOptions";
-import { StatusOptions } from "./StatusOptions";
 import { formatDate } from "@/lib/formatDate";
 import { UserType } from "../../types/officialsType";
 import ImageCover from "@/components/Image";
 
-export default function ViewProfile({
+export default function ViewProfileApproval({
   resident,
   onClose
 }: {

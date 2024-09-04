@@ -1,16 +1,11 @@
 import {
-  Tag,
   Users,
-  Settings,
-  Bookmark,
-  SquarePen,
   LayoutGrid,
   LucideIcon,
   CalendarRange,
-  MapPinHouse,
   BookOpenCheck,
-  UserPen,
-  FileClock
+  FileClock,
+  FileChartLine
 } from "lucide-react";
 
 type Submenu = {
@@ -74,7 +69,7 @@ export function getUserMenuList(pathname: string): Group[] {
           href: "/request-status",
           label: "Request Status",
           active: pathname.includes("/request-status"),
-          icon: UserPen,
+          icon: FileChartLine,
           submenus: []
         },
         {

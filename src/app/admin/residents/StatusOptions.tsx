@@ -46,9 +46,14 @@ const statusList = [
   }
 ];
 
-export function StatusOptions() {
+export function StatusOptions({
+  value,
+  onChange
+}: {
+  value: string;
+  onChange: (value: string) => void;
+}) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -57,12 +62,11 @@ export function StatusOptions() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="justify-between w-full"
-          disabled={true}
+          className="justify-between w-full text-muted-foreground font-light"
         >
           {value
             ? statusList.find((status) => status.value === value)?.label
-            : "Sex"}
+            : "Status"}
           <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
         </Button>
       </PopoverTrigger>
@@ -75,7 +79,7 @@ export function StatusOptions() {
                   key={status.value}
                   value={status.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
+                    onChange(currentValue === value ? "" : currentValue);
                     setOpen(false);
                   }}
                 >

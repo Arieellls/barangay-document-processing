@@ -1,0 +1,27 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_crb9fqjlk11lji5dkevg",
+    "operations": [
+      {
+        "add_column": {
+          "table": "users",
+          "column": {
+            "pk": false,
+            "name": "is_approved",
+            "type": "bool",
+            "unique": false,
+            "comment": "",
+            "default": "'false'",
+            "nullable": true
+          }
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_crb9fqjlk11lji5dkevg",
+  "parent": "mig_cr9c34g6i77sm1eqbqgg",
+  "schema": "public",
+  "startedAt": "2024-09-03T05:00:26.81616Z"
+}

@@ -28,12 +28,13 @@ export const Users = pgTable("users", {
   birthday: timestamp("birthday").notNull(),
   placeOfBirth: varchar("place_of_birth", { length: 100 }).notNull(),
   emailAddress: varchar("email_address", { length: 100 }).notNull().unique(),
-  isVoter: boolean("is_voter").notNull().default(false),
+  isVoter: boolean("is_voter").notNull(),
   formerAddress: text("former_address").notNull(),
   role: text("role").notNull(),
   position: text("position").notNull(),
   currentAddress: text("current_address").notNull(),
-  isApproved: boolean("is_voter").notNull().default(false)
+  isApproved: boolean("is_approved").notNull().default(false),
+  createdAt: timestamp("xata_createdat").defaultNow()
 });
 
 export const Officials = pgTable("officials", {
@@ -62,22 +63,33 @@ export const Events = pgTable("events", {
 });
 
 export const Documents = pgTable("requested_documents", {
-  id: text("xata_id").primaryKey(),
+  id: text("xata_id").notNull(),
   firstName: text("first_name").notNull(),
   lastName: text("last_name").notNull(),
-  middleName: text("middle_name").notNull(),
-  pickupDate: text("pickup_date").notNull(),
-  claimedDate: timestamp("claimed_date").notNull(),
+  middleName: text("middle_name"),
+  pickupDate: timestamp("pickup_date").notNull(),
+  claimedDate: timestamp("claimed_date"),
   serviceType: varchar("service_type", { length: 255 }).notNull(),
   purpose: text("purpose"),
   status: text("status"),
   userId: varchar("user_id")
     .notNull()
-    .references(() => Users.id)
+    .references(() => Users.id),
+  additionalDetails: varchar("additional_details", { length: 255 }),
+  createdAt: timestamp("xata_createdat").defaultNow()
 });
+
+const fileSchema = z.instanceof(File, { message: "Required" });
+const imageSchema = fileSchema.refine(
+  (file) => file.size === 0 || file.type.startsWith("image/"),
+  { message: "Invalid image file" }
+);
 
 export const registerSchema = z
   .object({
+    imageId: imageSchema.refine((file) => file.size > 0, {
+      message: "Required"
+    }),
     username: z
       .string()
       .min(1, { message: "Username is required" })
@@ -100,7 +112,7 @@ export const registerSchema = z
       .string()
       .max(50, { message: "Middle Name cannot exceed 50 characters" })
       .optional(),
-    sex: z.string().min(1, { message: "Sex is required" }),
+    sex: z.string().min(1, { message: "Sex is required" }).optional(),
     age: z
       .string()
       .regex(/^\d+$/, { message: "Age must be a number" })
