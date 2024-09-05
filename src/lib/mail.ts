@@ -1,14 +1,32 @@
 import nodemailer from "nodemailer";
 import * as handlerbars from "handlebars";
-import puppeteer from "puppeteer";
 import { Indigency } from "../app/admin/emails/template/Indigency";
 import { Clearance } from "@/app/admin/emails/template/Clearance";
 
+// import puppeteer from "puppeteer";
+
+// async function generatePDF(html: string): Promise<Buffer> {
+//   const browser = await puppeteer.launch();
+//   const page = await browser.newPage();
+//   await page.setContent(html);
+//   const pdfArray = await page.pdf({ format: "A4" });
+//   await browser.close();
+//   return Buffer.from(pdfArray);
+// }
+
+import puppeteerCore from "puppeteer-core";
+import chromium from "chrome-aws-lambda";
+
 async function generatePDF(html: string): Promise<Buffer> {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteerCore.launch({
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath,
+    headless: chromium.headless
+  });
   const page = await browser.newPage();
   await page.setContent(html);
-  const pdfArray = await page.pdf({ format: "A4" });
+  const pdfArray = await page.pdf({ format: "a4" });
   await browser.close();
   return Buffer.from(pdfArray);
 }
