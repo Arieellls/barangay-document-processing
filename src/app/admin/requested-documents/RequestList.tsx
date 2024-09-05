@@ -1,4 +1,3 @@
-import { getAllResidents } from "@/app/actions/getResidents";
 import {
   DropdownMenu,
   DropdownMenuItem,
@@ -18,9 +17,18 @@ import {
 import { formatFullname } from "@/lib/formatFullname";
 import { MoreVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import ViewProfileDialog from "../residents/ViewProfileDialog";
 import { getAllRequests } from "@/app/actions/documents/getRequests";
 import { formatDate } from "@/lib/formatDate";
+import ViewRequest from "./ViewRequestDialog";
+import ViewRequestDialog from "./ViewRequestDialog";
+import { Separator } from "@/components/ui/separator";
+import {
+  AcceptMenuItem,
+  DeclineMenuItem,
+  PendingMenuItem,
+  ReadyMenuItem
+} from "./ResidentMenuActions";
+import { DeclineAccountItem } from "../account-approval/AccountActions";
 
 export async function RequestList() {
   const requests = await getAllRequests();
@@ -75,6 +83,8 @@ export async function RequestList() {
                   ? "text-yellow-600"
                   : request.status === "Ready"
                   ? "text-green-600"
+                  : request.status === "Declined"
+                  ? "text-red-600"
                   : "text-blue-600"
               }`}
             >
@@ -89,16 +99,22 @@ export async function RequestList() {
                   <span className="sr-only">Actions</span>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  {/* <DropdownMenuItem> */}
-                  {/* <ViewProfileDialog resident={resident} className="w-full">
+                  <ViewRequestDialog request={request} className="w-full">
                     <Button
                       variant="default"
-                      className="relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors w-full hover:bg-accent hover:text-accent-foreground bg-transparent text-accent-foreground"
+                      className="relative flex items-center justify-start w-full py-1 text-sm text-left transition-colors bg-transparent rounded-sm outline-none cursor-default hover:bg-accent hover:text-accent-foreground text-accent-foreground"
                     >
-                      View Profile
+                      <span className="absolute left-0 block px-2 text-left">
+                        View Request
+                      </span>
                     </Button>
-                  </ViewProfileDialog> */}
-                  {/* </DropdownMenuItem> */}
+                  </ViewRequestDialog>
+
+                  <AcceptMenuItem request={request} />
+                  <ReadyMenuItem id={request.id} />
+                  <PendingMenuItem id={request.id} />
+                  <Separator />
+                  <DeclineMenuItem id={request.id} />
                 </DropdownMenuContent>
               </DropdownMenu>
             </TableCell>

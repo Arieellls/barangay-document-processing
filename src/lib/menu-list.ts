@@ -71,9 +71,9 @@ export function getAdminMenuList(pathname: string): Group[] {
           submenus: []
         },
         {
-          href: "/admin/request-documents",
+          href: "/admin/requested-documents",
           label: "Requested Documents",
-          active: pathname.includes("/request-documents"),
+          active: pathname.includes("/requested-documents"),
           icon: BookOpenCheck,
           submenus: []
         },
