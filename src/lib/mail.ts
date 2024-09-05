@@ -24,43 +24,58 @@ export async function sendMailIndigency({
   subject: string;
   body: string;
 }) {
-  const { EMAIL_USER, EMAIL_PASS } = process.env;
+  const EMAIL_USER = process.env.EMAIL_USER;
+  const EMAIL_PASS = process.env.EMAIL_PASS;
 
-  const transport = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
       user: EMAIL_USER,
       pass: EMAIL_PASS
-    }
+    },
+    secure: true,
+    port: 465,
+    host: "smtp.gmail.com"
   });
 
-  try {
-    const testResult = await transport.verify();
-    console.log(testResult);
-  } catch (error) {
-    console.log(error);
-    return;
-  }
-
-  try {
-    const pdfBuffer = await generatePDF(body);
-
-    const sendResult = await transport.sendMail({
-      from: EMAIL_USER,
-      to,
-      subject,
-      attachments: [
-        {
-          filename: "Barangay Indigency.pdf",
-          content: pdfBuffer
-        }
-      ],
-      html: body
+  await new Promise((resolve, reject) => {
+    transporter.verify(function (error, success) {
+      if (error) {
+        console.log(error);
+        reject(error);
+      } else {
+        console.log("Server is ready to take our messages");
+        resolve(success);
+      }
     });
-    console.log(sendResult);
-  } catch (error) {
-    console.log(error);
-  }
+  });
+
+  const pdfBuffer = await generatePDF(body);
+
+  const mailData = {
+    from: EMAIL_USER,
+    to,
+    subject,
+    attachments: [
+      {
+        filename: "Barangay Indigency.pdf",
+        content: pdfBuffer
+      }
+    ],
+    html: body
+  };
+
+  await new Promise((resolve, reject) => {
+    transporter.sendMail(mailData, (err, info) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+      } else {
+        console.log(info);
+        resolve(info);
+      }
+    });
+  });
 }
 
 export function compileIndigencyTemplate(
@@ -92,43 +107,58 @@ export async function sendMailClearance({
   subject: string;
   body: string;
 }) {
-  const { EMAIL_USER, EMAIL_PASS } = process.env;
+  const EMAIL_USER = process.env.EMAIL_USER;
+  const EMAIL_PASS = process.env.EMAIL_PASS;
 
-  const transport = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
       user: EMAIL_USER,
       pass: EMAIL_PASS
-    }
+    },
+    secure: true,
+    port: 465,
+    host: "smtp.gmail.com"
   });
 
-  try {
-    const testResult = await transport.verify();
-    console.log(testResult);
-  } catch (error) {
-    console.log(error);
-    return;
-  }
-
-  try {
-    const pdfBuffer = await generatePDF(body);
-
-    const sendResult = await transport.sendMail({
-      from: EMAIL_USER,
-      to,
-      subject,
-      attachments: [
-        {
-          filename: "Barangay Clearance.pdf",
-          content: pdfBuffer
-        }
-      ],
-      html: body
+  await new Promise((resolve, reject) => {
+    transporter.verify(function (error, success) {
+      if (error) {
+        console.log(error);
+        reject(error);
+      } else {
+        console.log("Server is ready to take our messages");
+        resolve(success);
+      }
     });
-    console.log(sendResult);
-  } catch (error) {
-    console.log(error);
-  }
+  });
+
+  const pdfBuffer = await generatePDF(body);
+
+  const mailData = {
+    from: EMAIL_USER,
+    to,
+    subject,
+    attachments: [
+      {
+        filename: "Barangay Indigency.pdf",
+        content: pdfBuffer
+      }
+    ],
+    html: body
+  };
+
+  await new Promise((resolve, reject) => {
+    transporter.sendMail(mailData, (err, info) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+      } else {
+        console.log(info);
+        resolve(info);
+      }
+    });
+  });
 }
 
 export function compileClearanceTemplate(
@@ -158,43 +188,58 @@ export async function sendMailResidency({
   subject: string;
   body: string;
 }) {
-  const { EMAIL_USER, EMAIL_PASS } = process.env;
+  const EMAIL_USER = process.env.EMAIL_USER;
+  const EMAIL_PASS = process.env.EMAIL_PASS;
 
-  const transport = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
       user: EMAIL_USER,
       pass: EMAIL_PASS
-    }
+    },
+    secure: true,
+    port: 465,
+    host: "smtp.gmail.com"
   });
 
-  try {
-    const testResult = await transport.verify();
-    console.log(testResult);
-  } catch (error) {
-    console.log(error);
-    return;
-  }
-
-  try {
-    const pdfBuffer = await generatePDF(body);
-
-    const sendResult = await transport.sendMail({
-      from: EMAIL_USER,
-      to,
-      subject,
-      attachments: [
-        {
-          filename: "Barangay Clearance.pdf",
-          content: pdfBuffer
-        }
-      ],
-      html: body
+  await new Promise((resolve, reject) => {
+    transporter.verify(function (error, success) {
+      if (error) {
+        console.log(error);
+        reject(error);
+      } else {
+        console.log("Server is ready to take our messages");
+        resolve(success);
+      }
     });
-    console.log(sendResult);
-  } catch (error) {
-    console.log(error);
-  }
+  });
+
+  const pdfBuffer = await generatePDF(body);
+
+  const mailData = {
+    from: EMAIL_USER,
+    to,
+    subject,
+    attachments: [
+      {
+        filename: "Barangay Indigency.pdf",
+        content: pdfBuffer
+      }
+    ],
+    html: body
+  };
+
+  await new Promise((resolve, reject) => {
+    transporter.sendMail(mailData, (err, info) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+      } else {
+        console.log(info);
+        resolve(info);
+      }
+    });
+  });
 }
 
 export function compileResidencyTemplate(
