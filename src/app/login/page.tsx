@@ -46,8 +46,8 @@ export default function Login() {
       if (errorResponse) {
         setError(errorResponse);
       } else {
-        location.reload();
         router.push("/");
+        location.reload();
       }
     });
   };

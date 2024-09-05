@@ -84,6 +84,8 @@ export async function HistoryList() {
                   ? "text-yellow-600"
                   : request.status === "Ready"
                   ? "text-green-600"
+                  : request.status === "Declined"
+                  ? "text-red-600"
                   : "text-blue-600"
               }`}
             >

@@ -3,7 +3,7 @@
 import { Documents } from "@/db/schemas";
 import { getXataClient } from "@/xata";
 import { drizzle } from "drizzle-orm/xata-http";
-import { and, asc, desc, eq, ne } from "drizzle-orm/expressions";
+import { and, asc, desc, eq, ne, or } from "drizzle-orm/expressions";
 
 const xata = getXataClient();
 const db = drizzle(xata);
@@ -13,7 +13,10 @@ export const getAllRequests = async () => {
     const requests = await db
       .select()
       .from(Documents)
-      .where(ne(Documents.status, "Released"));
+      .where(
+        and(ne(Documents.status, "Released"), ne(Documents.status, "Declined"))
+      )
+      .orderBy(desc(Documents.createdAt));
 
     return requests;
   } catch (error) {
@@ -27,7 +30,9 @@ export const getAllCompletedRequests = async () => {
     const requests = await db
       .select()
       .from(Documents)
-      .where(eq(Documents.status, "Released"));
+      .where(
+        or(eq(Documents.status, "Released"), eq(Documents.status, "Declined"))
+      );
 
     return requests;
   } catch (error) {
