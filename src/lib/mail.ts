@@ -28,9 +28,7 @@ export async function sendMailIndigency({
   const EMAIL_PASS = process.env.EMAIL_PASS;
 
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587, // Use port 587 for TLS
-    secure: false, // Set secure to false for TLS
+    service: "gmail",
     auth: {
       user: EMAIL_USER,
       pass: EMAIL_PASS
@@ -110,9 +108,7 @@ export async function sendMailClearance({
   const EMAIL_PASS = process.env.EMAIL_PASS;
 
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587, // Use port 587 for TLS
-    secure: false, // Set secure to false for TLS
+    service: "gmail",
     auth: {
       user: EMAIL_USER,
       pass: EMAIL_PASS
@@ -190,9 +186,7 @@ export async function sendMailResidency({
   const EMAIL_PASS = process.env.EMAIL_PASS;
 
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587, // Use port 587 for TLS
-    secure: false, // Set secure to false for TLS
+    service: "gmail",
     auth: {
       user: EMAIL_USER,
       pass: EMAIL_PASS
