@@ -44,15 +44,6 @@ export async function uploadToCloudinary(file: File): Promise<string> {
   formData.append("upload_preset", "fgynascv");
   formData.append("folder", "hci");
 
-  // // Add transformation parameters for content-aware cropping
-  // formData.append(
-  //   "transformation",
-  //   JSON.stringify({
-  //     gravity: "auto", // Content-aware cropping
-  //     crop: "fill" // Crop mode
-  //   })
-  // );
-
   const response = await axios.post(
     `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
     formData

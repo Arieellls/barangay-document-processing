@@ -46,7 +46,9 @@ export default function ViewRequest({
           onClose();
         }
       });
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleReady = () => {
@@ -63,7 +65,9 @@ export default function ViewRequest({
           onClose();
         }
       });
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handlePending = () => {
@@ -80,7 +84,9 @@ export default function ViewRequest({
           onClose();
         }
       });
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   if (!request) {
