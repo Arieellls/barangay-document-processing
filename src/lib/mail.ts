@@ -28,14 +28,13 @@ export async function sendMailIndigency({
   const EMAIL_PASS = process.env.EMAIL_PASS;
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587, // Use port 587 for TLS
+    secure: false, // Set secure to false for TLS
     auth: {
       user: EMAIL_USER,
       pass: EMAIL_PASS
-    },
-    secure: true,
-    port: 465,
-    host: "smtp.gmail.com"
+    }
   });
 
   await new Promise((resolve, reject) => {
@@ -111,14 +110,13 @@ export async function sendMailClearance({
   const EMAIL_PASS = process.env.EMAIL_PASS;
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587, // Use port 587 for TLS
+    secure: false, // Set secure to false for TLS
     auth: {
       user: EMAIL_USER,
       pass: EMAIL_PASS
-    },
-    secure: true,
-    port: 465,
-    host: "smtp.gmail.com"
+    }
   });
 
   await new Promise((resolve, reject) => {
@@ -192,14 +190,13 @@ export async function sendMailResidency({
   const EMAIL_PASS = process.env.EMAIL_PASS;
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587, // Use port 587 for TLS
+    secure: false, // Set secure to false for TLS
     auth: {
       user: EMAIL_USER,
       pass: EMAIL_PASS
-    },
-    secure: true,
-    port: 465,
-    host: "smtp.gmail.com"
+    }
   });
 
   await new Promise((resolve, reject) => {
