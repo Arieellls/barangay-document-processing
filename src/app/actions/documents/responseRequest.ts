@@ -46,6 +46,10 @@ export const updateUserRequestStatusToReleased = async (request: any) => {
 
     const response = await fetch(`${baseURL}/api/emails`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${process.env.RESEND_API_KEY}`
+      },
       body: JSON.stringify({
         fullName: fullName,
         purpose:
