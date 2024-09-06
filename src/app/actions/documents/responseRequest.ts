@@ -17,22 +17,11 @@ const db = drizzle(xata);
 export const updateUserRequestStatusToReleased = async (request: any) => {
   console.log(request);
   try {
-    await db
-      .update(Documents)
-      .set({
-        status: "Released",
-        claimedDate: new Date()
-      })
-      .where(
-        and(eq(Documents.id, request.id), ne(Documents.status, "Released"))
-      );
-
     const fullName = formatFullname({
       firstName: request.firstName,
       middleName: request?.middleName || "",
       lastName: request.lastName
     });
-
     const datePlus7Days = new Date();
     datePlus7Days.setDate(datePlus7Days.getDate() + 7);
 
@@ -67,6 +56,20 @@ export const updateUserRequestStatusToReleased = async (request: any) => {
     } else {
       console.log("Email sent successfully.");
     }
+  } catch (error) {
+    return error;
+  }
+
+  try {
+    await db
+      .update(Documents)
+      .set({
+        status: "Released",
+        claimedDate: new Date()
+      })
+      .where(
+        and(eq(Documents.id, request.id), ne(Documents.status, "Released"))
+      );
   } catch (error) {
     return error;
   }
