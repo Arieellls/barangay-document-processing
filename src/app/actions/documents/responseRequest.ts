@@ -29,7 +29,7 @@ export const updateUserRequestStatusToReleased = async (request: any) => {
 
     const fullName = formatFullname({
       firstName: request.firstName,
-      middleName: request?.middleName,
+      middleName: request?.middleName || "",
       lastName: request.lastName
     });
 
@@ -40,31 +40,28 @@ export const updateUserRequestStatusToReleased = async (request: any) => {
       `Status updated to "Released" and claimedDate set for request ID ${request.id}.`
     );
 
-    if (request.status === "Ready") return;
+    const baseURL =
+      process.env.NEXT_PUBLIC_BASE_URL ||
+      `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
 
-    if (request.serviceType === "Barangay Indigency") {
-      sendIndigency(
-        fullName,
-        request?.purpose || request.additionalDetails,
-        formatDate(new Date()),
-        formatDate(datePlus7Days)
-      );
-    }
+    const response = await fetch(`${baseURL}/api/emails`, {
+      method: "POST",
+      body: JSON.stringify({
+        fullName: fullName,
+        purpose:
+          request?.purpose === "Other"
+            ? request.additionalDetails
+            : request.purpose,
+        service: request.serviceType,
+        start: formatDate(new Date()),
+        end: formatDate(datePlus7Days)
+      })
+    });
 
-    if (request.serviceType === "Barangay Clearance") {
-      sendClearance(
-        fullName,
-        request?.purpose || request.additionalDetails,
-        formatDate(new Date())
-      );
-    }
-
-    if (request.serviceType === "Barangay Residency") {
-      sendResidency(
-        fullName,
-        request?.purpose || request.additionalDetails,
-        formatDate(new Date())
-      );
+    if (!response.ok) {
+      console.error("Failed to send email:", await response.text());
+    } else {
+      console.log("Email sent successfully.");
     }
   } catch (error) {
     return error;
