@@ -4,7 +4,7 @@ import puppeteer from "puppeteer";
 import { Indigency } from "../app/admin/emails/template/Indigency";
 import { Clearance } from "@/app/admin/emails/template/Clearance";
 
-async function generatePDF(html: string): Promise<Buffer> {
+export async function generatePDF(html: string): Promise<Buffer> {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.setContent(html);
@@ -26,7 +26,7 @@ export async function sendMailIndigency({
 }) {
   const { EMAIL_USER, EMAIL_PASS } = process.env;
 
-  const transport = nodemailer.createTransport({
+  const transport = await nodemailer.createTransport({
     service: "gmail",
     auth: {
       user: EMAIL_USER,
